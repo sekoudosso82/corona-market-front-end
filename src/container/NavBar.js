@@ -39,7 +39,9 @@ function NavBar(props){
 
         <Link to="/shoppingcart">
             <div className="navCLass">
-             <span className="shopItemNum">{props.shoppingCartItem.length}</span> 
+             <span className="shopItemNum">{props.currentUser? props.shoppingCartItems
+                .filter(item => item.shopping_cart_id === props.currentUser.id)
+                .length:null}</span> 
              Shopping 🛒</div>
         </Link>
 
@@ -69,8 +71,7 @@ function msp(state){
       // shopItemNum: state.shopItemNum
          
     }
-  }
-
+}
 
 // const mdp = dispatch => {
 //     return {
@@ -78,4 +79,4 @@ function msp(state){
 //     }
 //   }
 
-export default  connect(msp)(NavBar)
+export default connect(msp)(NavBar)

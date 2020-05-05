@@ -7,78 +7,62 @@ import { fetchShopItemCreator } from '../reducer'
 
 
 class ShoppingCart extends Component {
-  state = { 
-    // shoppingCartItems: [], 
-    // shopItemNum: null
-       
-  }
+  // state = { 
+    // shoppingCartItems: [],  
+  // }
   componentDidMount(){
-  //   // fetch('http://localhost:3000/api/v1/shopping_cart_items')
-  //   // .then(resp => resp.json())
-  //   // .then(data => { 
-  //   //   this.setState({shoppingCartItems: 
-  //   //     data.filter(item => item.shopping_cart_id === this.props.currentUser.id), 
-  //   //     // shopItemNum: data.filter(item => item.shopping_cart_id === this.props.currentUser.id).length
-  //   //   }) 
-      
-  //   // })
-    this.props.fetchShopItems()   
+    this.props.fetchShopItems()
   } 
   renderShoppingCartItems = () => {
-    return this.props.shoppingCartItem
-    // .filter(item => item.shopping_cart_id === this.props.currentUser.id)
+    console.log('shoppingCart props********. shoppingCartItems in render', this.props.shoppingCartItems)
+
+    return this.props.shoppingCartItems
+    .filter(item => item.shopping_cart_id === this.props.currentUser.id)
     .map(item => <ShoppingCartItem  key={item.id} {...item} 
-      handleRemoveFromShoppingCart={this.handleRemoveFromShoppingCart}/>            
+      handleRemoveFromShoppingCart={this.props.handleRemoveFromShoppingCart}/>            
     )
   }
 
   items = () => {
-    return this.props.shoppingCartItem
-    // .filter(item => item.shopping_cart_id === this.props.currentUser.id)
+    return this.props.shoppingCartItems
+    .filter(item => item.shopping_cart_id === this.props.currentUser.id)
     .length
   }
   subTotal = () => {
-    let summmm = this.props.shoppingCartItem
+    let summmm = this.props.shoppingCartItems
     return summmm
-    // .filter(item => item.shopping_cart_id === this.props.currentUser.id)
-    .reduce((totalPrice,item) => totalPrice + item.price, 0)
+    .filter(item => item.shopping_cart_id === this.props.currentUser.id)
+    .reduce((totalPrice,xx) => totalPrice + xx.item.price, 0)
   } 
   estimatedtaxxxx = () => {
-    let summmm = this.props.shoppingCartItem
+    let summmm = this.props.shoppingCartItems
     return Math.max(summmm
-    // .filter(item => item.shopping_cart_id === this.props.currentUser.id)
-    .reduce((totalPrice,item) => totalPrice + item.price, 0)
+    .filter(item => item.shopping_cart_id === this.props.currentUser.id)
+    .reduce((totalPrice,item) => totalPrice + item.item.price, 0)
     *(0.07)).toFixed(2)
   } 
   totalToPay = () => {
-    let summmm = this.props.shoppingCartItem
+    let summmm = this.props.shoppingCartItems
     return (
       ( summmm
-        // .filter(item => item.shopping_cart_id === this.props.currentUser.id)
-        .reduce((totalPrice,item) => totalPrice + item.price, 0)
+        .filter(item => item.shopping_cart_id === this.props.currentUser.id)
+        .reduce((totalPrice,item) => totalPrice + item.item.price, 0)
       )
       + 
       (
         summmm
-        // .filter(item => item.shopping_cart_id === this.props.currentUser.id)
-        .reduce((totalPrice,item) => totalPrice + item.price, 0)
+        .filter(item => item.shopping_cart_id === this.props.currentUser.id)
+        .reduce((totalPrice,item) => totalPrice + item.item.price, 0)
         *(0.07)
       )
     )
   }
 
-
-  
-  handleRemoveFromShoppingCart = (data) => {
-    console.log('delete shoppingCart data id', data.id)
-    this.setState({shoppingCartItems: this.props.shoppingCartItem
-      .filter(item => item.id!==data.id)})
-  }
   handleCheckout = () => {
     console.log('procede checkout')
     
-    let emptyArr = this.props.shoppingCartItem
-    // .filter(item => item.shopping_cart_id === this.props.currentUser.id)
+    let emptyArr = this.props.shoppingCartItems
+    .filter(item => item.shopping_cart_id === this.props.currentUser.id)
     
     for (let i = 0; i < emptyArr.length; i++) {
       
@@ -89,16 +73,19 @@ class ShoppingCart extends Component {
         .then(data => {console.log(data) })
       
     }
-    this.props.emptyShoppingCart();
-  }
+    this.props.checkout();
+  } 
+
+  // emptyShoppingCart = () =>{
+  //   this.setState({shoppingCartItem: [] 
+  //   })  
+  // } 
 
   render(){ 
-    console.log('shoppingCart props********. shoppingCartItems', this.props.shoppingCartItem)
-    // let xxxx = this.state.shoppingCartItems.length
+    console.log('shoppingCart props********. shoppingCartItems', this.props.shoppingCartItems)
     return (
 
       <div className="App ">
-            {/* {this.props.handlenumItem(xxxx) } */}
 
           <h1>Items in shoppingCart</h1>
           <div className="shopppingCardCardDiv">
@@ -124,18 +111,20 @@ class ShoppingCart extends Component {
     );
 }}
 
-// function msp(state){
-//   return { 
-//     shoppingCartItems: state.shoppingCartItems, 
-//     // shopItemNum: state.shopItemNum
+function msp(state){
+  return { 
+    shoppingCartItems: state.shoppingCartItems, 
+    // shopItemNum: state.shopItemNum
        
-//   }
-// }
+  }
+}
 
-// const mdp = dispatch => {
-//   return {
-//     fetchShopItems: () => dispatch(fetchShopItemCreator()),
-//   }
-// }
-export default ShoppingCart;  
+const mdp = dispatch => {
+  return {
+    fetchShopItems: () => dispatch(fetchShopItemCreator()),
+    checkout:() => dispatch({type: 'CHECKOUT'})
+    
+  }
+}
+export default connect(msp,mdp)(ShoppingCart);  
 

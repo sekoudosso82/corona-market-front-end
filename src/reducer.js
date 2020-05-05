@@ -1,6 +1,6 @@
 const initialState = {
     // app
-    shoppedItem: [], shoppingcartId: null,
+    shoppedItems: [], shoppingcartId: null,
     currentUser: null , searchTerm: "",
     sortChoice: '',
     //  items container 
@@ -37,15 +37,15 @@ export const fetchShopItemCreator = () => dispatch => {
 function reducer (prevState=initialState, action){
     console.log('reducer shopItem number', prevState.shopItemNum)
     switch(action.type){
-        case "COUNTSHOPPINGCARTITEMS":
+        case "":
             return (prevState.shoppingCartItems.length)
         case 'FETCH_SHOPITEM':
             return {...prevState, shoppingCartItems: action.payload.shoppingCartItems}
 
         // case "ADDITEMSHOPPINGCART":
         //     return {...prevState, shopItemNum: prevState.shoppingCartItems.length}
-        // case "REMOVEITEMSHOPPINGCART":
-        //     return {...prevState, shopItemNum: prevState.shoppingCartItems.length}
+        case "CHECKOUT":
+            return {...prevState, shopItemNum: []}
         
         default: 
             return prevState

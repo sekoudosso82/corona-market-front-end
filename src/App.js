@@ -35,35 +35,24 @@ class  App extends Component {
           alert(response.errors)
         } else {
           this.setState({
-            currentUser: response
-          })
-        }})}
+            currentUser: response})
+          
+        } 
+      })
+    }
   }
-
-  fetchShopItems = () =>{
-    fetch('http://localhost:3000/api/v1/shopping_cart_items')
-      .then(resp => resp.json())
-      .then(data => { 
-        this.setState({shoppingCartItem: 
-          data.filter(item => item.shopping_cart_id === this.state.currentUser.id), 
-          // shopItemNum: data.filter(item => item.shopping_cart_id === this.props.currentUser.id).length
-        }) 
-        
-      }) 
-  } 
-
-  emptyShoppingCart = () =>{
-        this.setState({shoppingCartItem: [] 
-        })  
-  } 
+      
   updateShopItem = (data) => { 
     this.setState({ shoppingCartItem: [...this.state.shoppingCartItem, data]})
 
   }
+  handleRemoveFromShoppingCart = (data) => {
+    console.log('delete shoppingCart data id', data.id)
+    this.setState({shoppingCartItem: this.state.shoppingCartItem
+      .filter(item => item.id!==data.id)})
+  }
 
   
-
-
   setUser = (response) => {
     console.log('response in app component', response)
     this.setState({
@@ -75,9 +64,6 @@ class  App extends Component {
     
   } 
 
-  // handlenumItem = (numb) => {
-  //   this.setState({ shopItemNum: numb })
-  // }
 
   logout = () => {
     this.setState({ 
@@ -104,10 +90,8 @@ class  App extends Component {
           searchTerm={this.state.searchTerm} 
           sortChoice={this.state.sortChoice}
           handleChange={this.handleChange} 
-          shoppingCartItem={this.state.shoppingCartItem} 
-          // shopItemNum={this.state.shopItemNum} 
-
-          />
+          // shoppingCartItem={this.state.shoppingCartItem} 
+        />
 
         {this.state.currentUser ? 
         <div> 
@@ -121,8 +105,9 @@ class  App extends Component {
           <Route path="/watchlist" render={() => <Watchlist currentUser={this.state.currentUser}/>}/>
           <Route path="/shoppingcart" render={() => <ShoppingCart currentUser={this.state.currentUser} 
             fetchShopItems={this.fetchShopItems} 
-            shoppingCartItem={this.state.shoppingCartItem} 
-            emptyShoppingCart={this.emptyShoppingCart}
+            // shoppingCartItem={this.state.shoppingCartItem} 
+            // emptyShoppingCart={this.emptyShoppingCart} 
+            handleRemoveFromShoppingCart={this.handleRemoveFromShoppingCart}
           />}/>
       
           <Route path="/profile" render={routerProps => <Profile {...routerProps} currentUser={this.state.currentUser}/>}/>
