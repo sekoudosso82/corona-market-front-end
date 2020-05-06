@@ -84,7 +84,8 @@ class SignupForm extends React.Component {
       return (
         
         <form className="formLogin" onSubmit={this.handleSubmit}>
-          <div class="form-row">
+              {/* <h1 className="warning"> Please Login or SignUp 🤙  </h1> */}
+          <div class="form-row loginDiv">
             <div>       
               <h1 className='salut'> Hi {this.state.username}</h1>
               <input className="form-control sellItemDivInput" placeholder="username" name="username" 

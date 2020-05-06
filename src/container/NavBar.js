@@ -9,7 +9,25 @@ import {connect} from 'react-redux'
 
 
 function NavBar(props){
-    console.log('nav bar prop countShoppingCartitems length', props.shoppingCartItems.length)
+    console.log('nav bar prop shoppingCartItems length', props.shoppingCartItems.length)
+    console.log('nav bar prop current user', props.currentUser)
+  // renderShoppingCartNumber = () => {
+  //   console.log('********* props nav bar *********', props )
+  //   return  props.currentUser && props.shoppingCartItems.length > 0 ? 
+  //        (<div className="navCLass">
+  //                         <span className="shopItemNum">
+  //                             {props.shoppingCartItems
+  //                             .filter(xxx => xxx.shopping_cart_id === props.currentUser.id)
+  //                             .length}
+  //                         </span> 
+  //                         : null
+                        
+                      
+  //                     Shopping 🛒
+  //         </div>) 
+  //         : null 
+                               
+  // }
   return (
    <div className=" navbar fixed-top navbar-dark bg-primary">
    
@@ -39,9 +57,15 @@ function NavBar(props){
 
         <Link to="/shoppingcart">
             <div className="navCLass">
-             <span className="shopItemNum">{props.currentUser? props.shoppingCartItems
-                .filter(item => item.shopping_cart_id === props.currentUser.id)
-                .length:null}</span> 
+            { props.currentUser && props.shoppingCartItems.length > 0 ? 
+                <span className="shopItemNum">
+                    {props.shoppingCartItems
+                     .filter(xxx => xxx.shopping_cart_id === props.currentUser.id)
+                     .length}
+                </span> 
+                : null
+               
+            }
              Shopping 🛒</div>
         </Link>
 
@@ -67,8 +91,7 @@ function NavBar(props){
 
 function msp(state){
     return { 
-        shoppingCartItems: state.shoppingCartItems, 
-      // shopItemNum: state.shopItemNum
+        shoppingCartItems: state.shoppingCartItems
          
     }
 }

@@ -47,7 +47,8 @@ class LoginForm extends React.Component {
       
       
       <form className="formLogin" onSubmit={this.handleSubmit}>
-              <div class="form-row">
+                    {/* <h1 className="warning"> Please Login or SignUp 🤙  </h1> */}
+              <div class="form-row loginDiv">
                   <div>
                     <h1 className='salut'> Hi {this.state.username}</h1>
                     <input className="form-control sellItemDivInput" placeholder="username" className='formInput' name="username" 
@@ -60,9 +61,11 @@ class LoginForm extends React.Component {
                         value={this.state.password} type="password"  
                         onChange={this.handleChange}placeholder="password"/>
                   </div>
-              </div>  
               <br></br>
-            <button className="formInput" type="submit">Log In</button>
+              <div className="loginSubmit">
+                  <button className="formInput" type="submit">Log In</button>
+              </div>
+              </div>  
           </form>
     
     )

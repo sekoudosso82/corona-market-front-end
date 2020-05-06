@@ -1,7 +1,9 @@
 import React, {Component} from 'react';
 
 import '../App.css';
-import ItemCart from './ItemCart'
+import ItemCart from './ItemCart' 
+import {connect} from 'react-redux' 
+
 
 
 
@@ -18,12 +20,7 @@ class Items extends Component {
             if (this.props.sortChoice ==='lowest'){
                     itemTorender = itemTorender.sort ((a,b) => 
                     (a.price > b.price ? 1:-1))}
-
-                // : (a.price > b.price ? 1:-1))}
-            // else{
-            //     itemTorender = itemTorender.sort ((a,b) => 
-            //         (a.id > b.id ? 1:-1))
-            // }
+                    
             return itemTorender
             .filter(item => item.title.toLowerCase().includes(this.props.searchTerm.toLowerCase()))
             .map(item => <ItemCart key={item.id} {...item} 
@@ -41,51 +38,14 @@ class Items extends Component {
 }
 }
 
+// function msp(state){
+//     return { 
+//         searchTerm: state.searchTerm, 
+         
+//     }
+// }
+
 export default Items;
 
-
-// import React, {Component} from 'react';
-
-// import '../App.css';
-// import ItemCart from './ItemCart'
-
-
-
-// class Items extends Component {
-    
-//     renderItems = () => {
-//         if (this.props.items){
-//             let itemTorender = this.props.items
-//             if (this.props.sort ==='lowest'){
-//                 itemTorender = itemTorender.sort ((a,b) => 
-//                 (a.price < b.price ? 1:-1))}
-//             if (this.props.sort ==='highest'){
-//                     itemTorender = itemTorender.sort ((a,b) => 
-//                     (a.price > b.price ? 1:-1))}
-
-//                 // : (a.price > b.price ? 1:-1))}
-//             // else{
-//             //     itemTorender = itemTorender.sort ((a,b) => 
-//             //         (a.id > b.id ? 1:-1))
-//             // }
-//             return itemTorender
-//             .filter(item => item.title.toLowerCase().includes(this.props.searchTerm.toLowerCase()))
-//             .map(item => {
-//                 return <ItemCart key={item.id} {...item} 
-//                 DeleteItem={this.props.DeleteItem} 
-
-//                 /> })
-//                 }
-//     }
-
-//     render(){
-//         return (
-//             <div className="App">
-//                 {this.renderItems()}
-//             </div>
-//         );
-// }
-// }
-
-// export default Items;
+// export default connect(msp)(Items);
 

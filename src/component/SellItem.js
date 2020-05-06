@@ -41,8 +41,14 @@ class SellItem extends Component {
 
     .then(resp=>resp.json())
     // .then(console.log)
-    .then(NewItem => { 
-        this.props.addItem(NewItem)
+    .then(data => { 
+      
+        console.log('new selling item ', data)
+        if(data.errors){
+            alert(data.errors)} 
+        else {
+            alert('new selling item add Successfully')}
+        this.props.sellNewItem(data)
     })
 
     this.setState({
@@ -64,37 +70,38 @@ class SellItem extends Component {
                   value = {this.state.title} onChange = {this.handleChange}/>
               </div>
               <div class="col">
-                  <input className="form-control sellItemDivInput"  type="text" placeholder="Add  price" name = "price" value = {this.state.price} 
-                  onChange = {this.handleChange}/>
+                  <input className="form-control sellItemDivInput"  type="text" placeholder="Add  price" name = "price" 
+                  value = {this.state.price} onChange = {this.handleChange}/>
               </div>
             </div>
           
             <div class="form-row">
                 <div class="col">
-                    <input className="form-control sellItemDivInput" type="text" placeholder="Add  location" name = "location" value = {this.state.location} 
-                    onChange = {this.handleChange}/>
+                    <input className="form-control sellItemDivInput" type="text" placeholder="Add  location" name = "location" 
+                    value = {this.state.location} onChange = {this.handleChange}/>
                 </div>
                 <div class="col">
-                    <input className="form-control sellItemDivInput" type="text" placeholder="Add  condition" name = "condition" value = {this.state.condition} 
-                    onChange = {this.handleChange}/>
-                </div>
-            </div>  
-
-            <div class="form-row">
-                <div class="col">
-                    <input className="form-control sellItemDivInput" type="text" placeholder="Add category" name = "category" value = {this.state.category} 
-                    onChange = {this.handleChange}/>
-                </div>
-                <div class="col">
-                    <input className="form-control sellItemDivInput" type="text" placeholder="accept offer yes/no" name = "offer" value = {this.state.offer} 
+                    <input className="form-control sellItemDivInput" type="text" placeholder="Add  condition" name = "condition" 
+                    value = {this.state.condition} 
                     onChange = {this.handleChange}/>
                 </div>
             </div>  
 
             <div class="form-row">
                 <div class="col">
-                    <input className="form-control sellItemDivInput" type="text" placeholder="Add Image Url" name = "imgUrl" value = {this.state.imgUrl} 
-                    onChange = {this.handleChange}/>
+                    <input className="form-control sellItemDivInput" type="text" placeholder="Add category" name = "category" 
+                    value = {this.state.category} onChange = {this.handleChange}/>
+                </div>
+                <div class="col">
+                    <input className="form-control sellItemDivInput" type="text" placeholder="accept offer yes/no" name = "offer" 
+                    value = {this.state.offer} onChange = {this.handleChange}/>
+                </div>
+            </div>  
+
+            <div class="form-row">
+                <div class="col">
+                    <input className="form-control sellItemDivInput" type="text" placeholder="Add Image Url" name = "imgUrl" 
+                    value = {this.state.imgUrl} onChange = {this.handleChange}/>
                 </div>
                 <div class="col">
                 </div>
@@ -111,14 +118,25 @@ class SellItem extends Component {
 }
 }
 
-function msp(state){
-    return {
-        title: state.title, price: state.price, location: state.location,
-        condition: state.condition, category: state.category,offer: state.offer, 
-        imgUrl: state.imgUrl,
-    }
+// function msp(state){
+//     return {
+//         title: state.title, 
+//         price: state.price, 
+//         location: state.location,
+//         condition: state.condition, 
+//         category: state.category,
+//         offer: state.offer, 
+//         imgUrl: state.imgUrl,
+//     }
+// }  
+
+const mdp = dispatch => {
+  return {
+    sellNewItem: (data) => dispatch({type: "SELL_NEW_ITEM", 
+                                         payload: (data)})                         
+  }
 }
 
-export default  withRouter(connect(msp)(SellItem))
+export default  withRouter(connect(null,mdp)(SellItem))
 
 

@@ -1,4 +1,6 @@
 import React, {Component} from 'react';
+import {connect} from 'react-redux' 
+import {fetchOffersCreator} from '../reducer'
 
 import '../App.css';
 import Offer from "./Offer"
@@ -6,18 +8,10 @@ import Offer from "./Offer"
 
 
 class Summary extends Component {
-  state = { 
-    offers: [],  
-    declinedOffer: false   
-  }
-  toggleDeclinedOffer= () => {
-    this.setState({ declinedOffer: !this.state.declinedOffer})
-}
+  
    
   componentDidMount(){
-    fetch('http://localhost:3000/api/v1/offers')
-    .then(resp => resp.json())
-    .then(offers => this.setState({offers}) )
+    this.props.fetchOffers()
   } 
   
 
@@ -39,41 +33,41 @@ class Summary extends Component {
   renderOffers = () => {
     
     // items={this.state.items}  currentUser
-        let offerTorender = this.state.offers        
+        let offerTorender = this.props.offers        
         return offerTorender
         .filter(offer => offer.item.user_id===this.props.currentUser.id)
-        .map(offer => <Offer key={offer.id} offer ={offer} 
-        toggleDeclinedOffer={this.toggleDeclinedOffer} 
-        declinedOffer={this.state.declinedOffer} 
-        DeleteOffer={this.DeleteOffer} 
-        handleUpdateItem={this.props.handleUpdateItem}
-        updateOffer={this.updateOffer}
+        .map(offer => <Offer key={offer.id} offer={offer} 
+        // toggleDeclinedOffer={this.toggleDeclinedOffer} 
+        // declinedOffer={this.props.declinedOffer} 
+        // DeleteOffer={this.DeleteOffer} 
+        // handleUpdateItem={this.props.handleUpdateItem}
+        // updateOffer={this.updateOffer}
         
         />
         ) 
   }
 
   DeleteOffer = (data) => {
-      let newOffers = this.state.offers.filter(offer => offer.id !== data.id)
+      let newOffers = this.props.offers.filter(offer => offer.id !== data.id)
       this.setState({ offers: newOffers })   
   }
 
-  updateOffer = (updateditem) => {
-    let newOffers = this.state.offers.map(offer => {
-      if (offer.item.id===updateditem.id){
-          return {...offer, }
-      }else {
-          return offer
-      }
-    })
-    this.setState({offers: newOffers})
+  // updateOffer = (updateditem) => {
+  //   let newOffers = this.props.offers.map(offer => {
+  //     if (offer.item.id===updateditem.id){
+  //         return {...offer, }
+  //     }else {
+  //         return offer
+  //     }
+  //   })
+  //   this.setState({offers: newOffers})
     // console.log('new offer', newOffers)
     // console.log('updated item', updateditem)
-  }
+  // }
 
   render()
   {
-    console.log('id of declined offer ******',this.state.declinedOffer)
+    console.log('id of declined offer ******',this.props.declinedOffer)
     console.log('summary all items ******',this.props.items)
     return (
       <div className="App topDiv">
@@ -90,23 +84,20 @@ class Summary extends Component {
     );
   }
 }
+function msp(state){
+  return { 
+    offers: state.offers, 
+    items: state.items 
+       
+  }
+}
 
-export default Summary;  
+const mdp = dispatch => {
+  return {
+    fetchOffers: () => dispatch(fetchOffersCreator()),
+    
+  }
+}
 
+export default connect(msp, mdp)(Summary);  
 
-// import React from 'react';
-
-// import '../App.css';
-// import logo from '../logo.svg';
-
-
-// function Summary() {
-//   return (
-//     <div className="App">
-//       Summary
-
-//     </div>
-//   );
-// }
-
-// export default Summary;

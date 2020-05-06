@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import {connect} from 'react-redux'
 
 import '../App.css';
 import logo from '../logo.svg';
@@ -13,7 +14,7 @@ class Offer extends Component {
     .then(resp => resp.json())
     .then(data => { 
         console.log('delete data id', data.id)
-        this.props.DeleteOffer(data)
+        this.props.deleteOffer(data)
       })
     
   }
@@ -28,20 +29,20 @@ class Offer extends Component {
       body: JSON.stringify({price:this.props.offer.amount})
     })
     .then(resp => resp.json())
-    .then(renderedData => { 
-            console.log('offer posted data ', renderedData)
-            if(renderedData.errors){
-                alert(renderedData.errors)} 
+    .then(renderData => { 
+            console.log('offer posted data ', renderData)
+            if(renderData.errors){
+                alert(renderData.errors)} 
             else {
                 alert('Offer Successfully accepted')
-                this.props.handleUpdateItem(renderedData)
+                this.props.updateItemPrice(renderData)
                 fetch(`http://localhost:3000/api/v1/offers/${id2}`, {
                     method: "DELETE"
                 })
                 .then(resp => resp.json())
                 .then(data => { 
                     console.log('delete data id', data.id)
-                    this.props.DeleteOffer(data)
+                    this.props.deleteOffer(data)
                   })
               }
 
@@ -77,22 +78,16 @@ class Offer extends Component {
 }
 }
 
-export default Offer;
+const mdp = dispatch => {
+  return {
+    deleteOffer: (data) => dispatch({type: "DELETE_OFFER", 
+                                         payload: (data)}),
+    updateItemPrice: (data) => dispatch({type: "UPDATE_ITEM_PRIE", 
+                                         payload: (data)}),
+                            
+  }
+}
+
+export default connect(null,mdp)(Offer);
 
 
-// import React from 'react';
-
-// import '../App.css';
-// import logo from '../logo.svg';
-
-
-// function Offers() {
-//   return (
-//     <div className="App">
-//       offers component
-
-//     </div>
-//   );
-// }
-
-// export default Offers;

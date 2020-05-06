@@ -6,11 +6,11 @@ class ProfileCart extends Component {
     state = {
         updateIsClicked: false,
         deleteIsClicked: false,
-        username: '',
-        password: '',
-        email: '',
-        phone: '',
-        profileImage: '',
+        // username: '',
+        // password: '',
+        // email: '',
+        // phone: '',
+        // profileImage: '',
     }
 
     toggleUpdateIsClicked= () => {
@@ -29,11 +29,11 @@ class ProfileCart extends Component {
     handleUpdateProfile = (event) => {
         event.preventDefault()
         let data = {
-            username: this.state.username,
-            password: this.state.password,
-            email: this.state.email,
-            phone: this.state.phone,
-            profileImage: this.state.profileImage
+            username: this.props.username,
+            password: this.props.password,
+            email: this.props.email,
+            phone: this.props.phone,
+            profileImage: this.props.profileImage
         }
         let id  = this.props.currentUser.id; 
         console.log(' profile id ', this.props.currentUser.id )             
@@ -106,31 +106,31 @@ class ProfileCart extends Component {
                     <br></br>
                     
                     <label>username</label>
-                    <input type="text" name = "username" value = {this.state.username} 
+                    <input type="text" name = "username" value = {this.props.username} 
                     onChange = {this.handleChange}/>
                     <br></br>
                     <br></br>
 
                     <label>password</label>
-                    <input type="text" name = "password" value = {this.state.password} 
+                    <input type="text" name = "password" value = {this.props.password} 
                     onChange = {this.handleChange}/>
                     <br></br>
                     <br></br>
 
                     <label>email</label>  
-                    <input type="text" name ="email" value = {this.state.email} 
+                    <input type="text" name ="email" value = {this.props.email} 
                     onChange = {this.handleChange}/>
                     <br></br>
                     <br></br>
 
                     <label>phone</label>  
-                    <input type="text" name = "phone" value = {this.state.phone} 
+                    <input type="text" name = "phone" value = {this.props.phone} 
                     onChange = {this.handleChange}/>
                     <br></br>
                     <br></br>
 
                     <label>profileImage</label>  
-                    <input type="text" name = "profileImage" value = {this.state.profileImage} 
+                    <input type="text" name = "profileImage" value = {this.props.profileImage} 
                     onChange = {this.handleChange}/>
                     <br></br>
                     <br></br>
@@ -152,8 +152,8 @@ class ProfileCart extends Component {
 
 function msp(state){
     return {
-        updateIsClicked: state.updateIsClicked,
-        deleteIsClicked: state.deleteIsClicked,
+        // updateIsClicked: state.updateIsClicked,
+        // deleteIsClicked: state.deleteIsClicked,
         username: state.username,
         password: state.password,
         email: state.email,

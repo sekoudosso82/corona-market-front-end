@@ -7,20 +7,15 @@ import { fetchShopItemCreator } from '../reducer'
 
 
 class ShoppingCart extends Component {
-  // state = { 
-    // shoppingCartItems: [],  
-  // }
-  componentDidMount(){
-    this.props.fetchShopItems()
-  } 
+  
   renderShoppingCartItems = () => {
     console.log('shoppingCart props********. shoppingCartItems in render', this.props.shoppingCartItems)
-
+    
     return this.props.shoppingCartItems
     .filter(item => item.shopping_cart_id === this.props.currentUser.id)
-    .map(item => <ShoppingCartItem  key={item.id} {...item} 
-      handleRemoveFromShoppingCart={this.props.handleRemoveFromShoppingCart}/>            
+    .map(item => <ShoppingCartItem  key={item.id} {...item} />            
     )
+ 
   }
 
   items = () => {
@@ -29,10 +24,17 @@ class ShoppingCart extends Component {
     .length
   }
   subTotal = () => {
-    let summmm = this.props.shoppingCartItems
-    return summmm
-    .filter(item => item.shopping_cart_id === this.props.currentUser.id)
-    .reduce((totalPrice,xx) => totalPrice + xx.item.price, 0)
+    console.log('_________shoppingCartItem  props--------------- ', this.props.shoppingCartItems)
+    // if (this.props.shoppingCartItems){
+      // let summmm = this.props.shoppingCartItems
+      // return summmm
+      return this.props.shoppingCartItems
+      .filter(item => item.shopping_cart_id === this.props.currentUser.id)
+      .reduce((totalPrice,itemInShoppingCart) => totalPrice + itemInShoppingCart.item.price, 0)
+
+    // }else {
+    //   return 0
+    // }
   } 
   estimatedtaxxxx = () => {
     let summmm = this.props.shoppingCartItems
@@ -76,10 +78,6 @@ class ShoppingCart extends Component {
     this.props.checkout();
   } 
 
-  // emptyShoppingCart = () =>{
-  //   this.setState({shoppingCartItem: [] 
-  //   })  
-  // } 
 
   render(){ 
     console.log('shoppingCart props********. shoppingCartItems', this.props.shoppingCartItems)
@@ -114,16 +112,12 @@ class ShoppingCart extends Component {
 function msp(state){
   return { 
     shoppingCartItems: state.shoppingCartItems, 
-    // shopItemNum: state.shopItemNum
-       
   }
 }
 
 const mdp = dispatch => {
   return {
-    fetchShopItems: () => dispatch(fetchShopItemCreator()),
-    checkout:() => dispatch({type: 'CHECKOUT'})
-    
+    checkout:() => dispatch({type: 'CHECKOUT'})  
   }
 }
 export default connect(msp,mdp)(ShoppingCart);  

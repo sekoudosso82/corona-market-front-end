@@ -33,7 +33,6 @@ class ShowSingleItem extends Component{
 
     handleAddToCart = () => {
         console.log('this.props.match.params', this.props.match.params)
-        
         let { id } = this.props.match.params; 
         let data = {
             shopping_cart_id: this.props.userId, 
@@ -54,6 +53,7 @@ class ShowSingleItem extends Component{
                 alert(data.errors)} 
             else {
                 alert('Successfully added to shopping cart')}
+                console.log('GOT FROM BACKEND AFTER POST', data)
                 this.props.updateShopItem(data)
         })  
     }
@@ -131,7 +131,7 @@ class ShowSingleItem extends Component{
         .then(resp => resp.json())
         .then(data => { 
             console.log('delete data id', data.id)
-            this.props.DeleteItem(this.state.targetItem)})
+            this.props.deleteItem(data)})
         
         this.props.history.push('/items')
     }
@@ -254,217 +254,30 @@ class ShowSingleItem extends Component{
     } 
 }     
 
-function msp(state){
+// function msp(state){
+//     return {
+        // targetItem: state.targetItem,
+        // editItem: state.editItem,
+        // makeOffer: state.makeOffer,
+        // title: state.title,     
+        // price: state.price,
+        // location: state.location,   
+        // condition: state.condition,
+        // category: state.category,   
+        // offer: state.offer,
+        // imgUrl: state.imgUrl
+
+//     }
+// } 
+
+const mdp = dispatch => {
     return {
-        targetItem: state.targetItem,
-        editItem: state.editItem,
-        makeOffer: state.makeOffer,
-        title: state.title,     
-        price: state.price,
-        location: state.location,   
-        condition: state.condition,
-        category: state.category,   
-        offer: state.offer,
-        imgUrl: state.imgUrl
-
+        updateShopItem: (data) => dispatch({type: "UPDATE_SHOPPINGCART", 
+                                           payload: (data)}), 
+        deleteItem: (data) => dispatch({type: "DELETE_ITEM", 
+                                           payload: (data)}), 
     }
-}
-export default withRouter(connect(msp)(ShowSingleItem));  
+  }
 
 
-// import React, {Component} from 'react'
-// import { withRouter } from "react-router";
-
-// import '../App.css';
-
-// class ShowSingleItem extends Component{
-
-//     state = {
-//         // targetItem: null
-//         targetItem: {},
-//         editItem: false,
-        
-        
-//         title: '',
-//         price: '',
-//         location: '',
-//         condition: '',
-//         category: '',
-//         offer: false,
-//         imgUrl:''
-
-//     }
-//     toggleEditItem = () => {
-//         this.setState({ editItem: !this.state.editItem})
-//     }
-//     componentDidMount(){
-//         let { id } = this.props.match.params;              
-//         fetch(`http://localhost:3000/api/v1/items/${id}`)
-//         .then(res => res.json())
-//         .then(targetItem => this.setState({targetItem}))
-//     }
-
-//     handleAddToCart = () => {
-//         let { id } = this.props.match.params; 
-//         let data = {
-//             shopping_cart_id: this.props.userId, 
-//             item_id: id
-//           } 
-//         fetch(`http://localhost:3000/api/v1/shopping_cart_items`, {
-//             method: 'Post',
-//             headers: {"Content-Type": "application/json",
-//                       "Accept": "application/json"},    
-//             body: JSON.stringify(data)
-//         })
-//         .then(resp=>resp.json())
-//         .then(data =>  {console.log(data)})  
-//     }
-//     handleAddToWatchlist = () => {
-//         let { id } = this.props.match.params; 
-//         let data = {
-//             watchlist_id: this.props.userId, 
-//             item_id: id
-//           } 
-//         fetch("http://localhost:3000/api/v1/watchlist_items", {
-//             method: 'Post',
-//             headers: {"Content-Type": "application/json",
-//                       "Accept": "application/json"},    
-//             body: JSON.stringify(data)
-//         })
-//         .then(resp=>resp.json())
-//         .then(data =>  console.log(data))  
-//     }
-
-    
-//     handleDelete = () => {
-//         let { id } = this.props.match.params;              
-//         fetch(`http://localhost:3000/api/v1/items/${id}`, {
-//             method: "DELETE"
-//         })
-//         .then(resp => resp.json())
-//         .then(data => { 
-//             console.log('delete data id', data.id)
-//             this.props.DeleteItem(this.state.targetItem)})
-        
-//         this.props.history.push('/items')
-//     }
-    
-//     handleChange = (event) => {
-//         this.setState({
-//               [event.target.name]: event.target.value
-//         })
-//       }
-
-//     handleEdit = (event) => {
-//         event.preventDefault()
-//         let data = {
-//             user_id: this.props.userId, 
-//             title: this.state.title,
-//             price: this.state.price,
-//             location: this.state.location,
-//             condition: this.state.condition,
-//             category: this.state.category,
-//             offer: this.state.offer,
-//             imgUrl: this.state.imgUrl,
-//           }
-//         let { id } = this.props.match.params;              
-//         fetch(`http://localhost:3000/api/v1/items/${id}`, {
-//             method: 'PATCH',
-//             headers: {"Content-Type": "application/json",
-//                       "Accept": "application/json"},    
-//             body: JSON.stringify(
-//                 data
-//             )
-//         })
-//         .then(resp=>resp.json())
-//         .then(data =>  {this.props.handleUpdateItem(data)})
-
-//         this.setState({ targetItem: {} }) 
-//         this.props.history.push('/items')
-//     } 
-
-    
-//     render(){
-//         let { id } = this.props.match.params;
-//         console.log('*** showSingleItem this.props.match.params', id)
-//         console.log('*** showSingleItem this.props', this.props)
-//         console.log('*** this state targetItem', this.state.targetItem)
-        
-//         return(
-//             <div>
-//             <div onClick={() => this.props.history.goBack()} className="back-button">⬅️ Go Back ⬅️</div>
-//                   <img  className = "postImg" src={this.state.targetItem.imgUrl} />
-//                   <p>{this.state.targetItem.title}</p>
-//                   <p>${this.state.targetItem.price}</p>
-//                   <p>location: {this.state.targetItem.location}</p>
-//                   <p>condition: {this.state.targetItem.condition} </p>
-//                   <button className = "button" onClick={this.handleAddToCart}>Add to Cart</button>
-
-//                   <button className = "button" onClick = ''>Make Offer</button>
-
-//                   <button className = "button" onClick={this.handleAddToWatchlist}>Add to Watchlist</button>
-
-//                   <button className = "button" onClick={this.handleDelete}>Delete</button> 
-//                   <button className = "button" onClick={this.toggleEditItem}>Edit</button>
-//                   {this.state.editItem ? 
-//                     <form onSubmit={this.handleEdit}>
-
-//                         <label>Add title</label>
-//                         <input type="text" name = "title" value = {this.state.title} 
-//                         onChange = {this.handleChange}/>
-//                         <br></br>
-//                         <br></br>
-
-//                         <label>Add  price</label>
-//                         <input type="text" name = "price" value = {this.state.price} 
-//                         onChange = {this.handleChange}/>
-//                         <br></br>
-//                         <br></br>
-
-//                         <label>Add  location</label>  
-//                         <input type="text" name = "location" value = {this.state.location} 
-//                         onChange = {this.handleChange}/>
-//                         <br></br>
-//                         <br></br>
-
-//                         <label>Add  condition</label>  
-//                         <input type="text" name = "condition" value = {this.state.condition} 
-//                         onChange = {this.handleChange}/>
-//                         <br></br>
-//                         <br></br>
-
-//                         <label>Add category</label>  
-//                         <input type="text" name = "category" value = {this.state.category} 
-//                         onChange = {this.handleChange}/>
-//                         <br></br>
-//                         <br></br>
-
-//                         <label>accept offer yes/no</label>  
-//                         <input type="text" name = "offer" value = {this.state.offer} 
-//                         onChange = {this.handleChange}/>
-//                         <br></br>
-//                         <br></br>
-
-//                         <label>Add Image Url</label>
-//                         <input type="text" name = "imgUrl" value = {this.state.imgUrl} 
-//                         onChange = {this.handleChange}/>
-//                         <br></br>
-//                         <br></br>
-
-//                         <button type='Submit' value="Submit" className = "button">Update item</button>
-//                     </form>
-//                     : 
-//                     null}  
-            
-//           {/* {this.state.targetItem && this.renderItemInfo(this.state.targetItem)}  */}
-                    
-//           </div>
-//         )
-//     } 
-// }     
-
-
-// export default withRouter(ShowSingleItem);
-
-
-
+export default withRouter(connect(null, mdp)(ShowSingleItem));  

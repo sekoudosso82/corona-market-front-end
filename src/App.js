@@ -6,6 +6,8 @@ import {LoginForm, SignupForm, Profile,
         ShoppingCart, Items, Currency} from './component'
 
 import { connect } from 'react-redux'
+import { fetchShopItemCreator } from './reducer'
+
 import NavBar from './container/NavBar'
 import ItemsContainer from './container/ItemsContainer.js'
 import UsersContainer from './container/UsersContainer.js'
@@ -13,10 +15,7 @@ import UsersContainer from './container/UsersContainer.js'
 
 class  App extends Component {
   state = { 
-    shoppedItem: [],
-    shoppingCartItem: [],
-    // shopItemNum:null,
-    shoppingcartId: null,
+    // shoppingCartItem: [],
     currentUser: null ,
     searchTerm: "",
     sortChoice: '',
@@ -40,17 +39,21 @@ class  App extends Component {
         } 
       })
     }
+
+    // componentDidMount(){
+      this.props.fetchShopItems()
+    // } 
   }
       
-  updateShopItem = (data) => { 
-    this.setState({ shoppingCartItem: [...this.state.shoppingCartItem, data]})
+  // updateShopItem = (data) => { 
+  //   this.setState({ shoppingCartItem: [...this.state.shoppingCartItem, data]})
 
-  }
-  handleRemoveFromShoppingCart = (data) => {
-    console.log('delete shoppingCart data id', data.id)
-    this.setState({shoppingCartItem: this.state.shoppingCartItem
-      .filter(item => item.id!==data.id)})
-  }
+  // }
+  // handleRemoveFromShoppingCart = (data) => {
+  //   console.log('delete shoppingCart data id', data.id)
+  //   this.setState({shoppingCartItem: this.state.shoppingCartItem
+  //     .filter(item => item.id!==data.id)})
+  // }
 
   
   setUser = (response) => {
@@ -89,8 +92,7 @@ class  App extends Component {
         <NavBar fixed="top"  currentUser={this.state.currentUser} logout={this.logout}
           searchTerm={this.state.searchTerm} 
           sortChoice={this.state.sortChoice}
-          handleChange={this.handleChange} 
-          // shoppingCartItem={this.state.shoppingCartItem} 
+          handleChange={this.handleChange}  
         />
 
         {this.state.currentUser ? 
@@ -100,20 +102,18 @@ class  App extends Component {
                                                     currentUser={this.state.currentUser} 
                                                     searchTerm={this.state.searchTerm}
                                                     updateShopItem={this.updateShopItem} 
-                                                    sortChoice={this.state.sortChoice}/>} />
+                                                    sortChoice={this.state.sortChoice}
+
+                                                    />} />
 
           <Route path="/watchlist" render={() => <Watchlist currentUser={this.state.currentUser}/>}/>
-          <Route path="/shoppingcart" render={() => <ShoppingCart currentUser={this.state.currentUser} 
-            fetchShopItems={this.fetchShopItems} 
-            // shoppingCartItem={this.state.shoppingCartItem} 
-            // emptyShoppingCart={this.emptyShoppingCart} 
-            handleRemoveFromShoppingCart={this.handleRemoveFromShoppingCart}
+          <Route path="/shoppingcart" render={() => <ShoppingCart currentUser={this.state.currentUser}  
+            // handleRemoveFromShoppingCart={this.handleRemoveFromShoppingCart}
           />}/>
       
-          <Route path="/profile" render={routerProps => <Profile {...routerProps} currentUser={this.state.currentUser}/>}/>
+          <Route path="/profile" render={routerProps => <Profile {...routerProps} 
+                                 currentUser={this.state.currentUser}/>}/>
 
-          {/* <Route path="/summary" component={Summary} /> */}
-          {/* <Route path="/offer" component={Offers} /> */}
           <Route path="/allsellings" component={AllSellings} />
           <Route path="/allparchaseditems " component={AllPurchasedItems} />
           
@@ -138,16 +138,19 @@ class  App extends Component {
 
 function msp(state){
   return {
+    shoppingCartItems: state.shoppingCartItems,
     shoppedItem: state.shoppedItem,
-    // shopItemNum:null,
     shoppingcartId: state.shoppingcartId,
-    currentUser: state.currentUser ,
-    searchTerm: state.searchTerm,
-    sortChoice: state.sortChoice,
   }
 }
 
+const mdp = dispatch => {
+  return {
+    fetchShopItems: () => dispatch(fetchShopItemCreator()),
+    // checkout:() => dispatch({type: 'CHECKOUT'})
+    
+  }
+}
 
-
-export default connect(msp)(App);
+export default connect(msp, mdp)(App);
 

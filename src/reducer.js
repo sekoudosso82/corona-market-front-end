@@ -1,14 +1,16 @@
 const initialState = {
     // app
-    shoppedItems: [], shoppingcartId: null,
-    currentUser: null , searchTerm: "",
+    shoppedItems: [], shoppingcartId: null, shoppingCartItem: [],
+    // currentUser: null, 
+    searchTerm: "",
     sortChoice: '',
     //  items container 
     items: [],    
     // profil  
     users: [],  
     //shoppingCart     
-    shoppingCartItems: [],  
+    shoppingCartItems: [], 
+    // targetUser: {posts: [] }, 
     countShoppingCartitems: null ,  
     // watchlist  
     watchlistItems: [],  
@@ -22,7 +24,10 @@ const initialState = {
     // showSingleitem 
     targetItem: {}, editItem: false, makeOffer: false,
     title: '', price: '', location: '',   
-    condition: '',category: '', offer: false, imgUrl:''
+    condition: '',category: '', offer: false, imgUrl:'',
+    // summary  
+    offers: [],  
+    // declinedOffer: false 
     
 }
 
@@ -32,22 +37,103 @@ export const fetchShopItemCreator = () => dispatch => {
     .then(shoppingCartItems => {
         dispatch({type: 'FETCH_SHOPITEM', payload: { shoppingCartItems }})
     })
+} 
+
+export const fetchItemCreator = () => dispatch => {
+    fetch('http://localhost:3000/api/v1/items')
+    .then(resp => resp.json())
+    .then(items => {
+        dispatch({type: 'FETCH_ITEMS', payload: { items }})
+    })
+} 
+export const fetchOffersCreator = () => dispatch => {
+    fetch('http://localhost:3000/api/v1/offers')
+    .then(resp => resp.json())
+    .then(offers => {
+        dispatch({type: 'FETCH_OFFERS', payload: { offers }})
+    })
+}
+
+export const fetchUsersCreator = () => dispatch => {
+    fetch('http://localhost:3000/api/v1/users')
+    .then(resp => resp.json())
+    .then(users => {
+        dispatch({type: 'FETCH_USERS', payload: { users }})
+    })
+}  
+
+export const fetchWatchlistCreator = () => dispatch => {
+    fetch('http://localhost:3000/api/v1/watchlist_items')
+    .then(resp => resp.json())
+    .then(watchlistItems => {
+        dispatch({type: 'FETCH_WATCHLIST', payload: { watchlistItems }})
+    })
 }
 
 function reducer (prevState=initialState, action){
     console.log('reducer shopItem number', prevState.shopItemNum)
     switch(action.type){
-        case "":
-            return (prevState.shoppingCartItems.length)
+        // case "COUNTSHOPPINGCARTITEMS":
+        //     return (prevState.shoppingCartItems)
         case 'FETCH_SHOPITEM':
+            console.log('fetch shopItem ', action.payload)
             return {...prevState, shoppingCartItems: action.payload.shoppingCartItems}
+        case 'FETCH_OFFERS':
+            return {...prevState, offers: action.payload.offers}
+        case 'FETCH_USERS':
+            return {...prevState, users: action.payload.users}
+        case 'FETCH_WATCHLIST':
+            return {...prevState, watchlistItems: action.payload.watchlistItems}
+        case "UPDATE_SHOPPINGCART":
+            console.log('update shoppingCart payload', action.payload )
 
-        // case "ADDITEMSHOPPINGCART":
-        //     return {...prevState, shopItemNum: prevState.shoppingCartItems.length}
-        case "CHECKOUT":
-            return {...prevState, shopItemNum: []}
+            return {...prevState, shoppingCartItems: [...prevState.shoppingCartItems, action.payload]}
+        case 'REMOVE_FROM_SHOPPINGCART':
+            let id = action.payload.id
+            console.log('delete from shoppingCart payload.id', action.payload.id )
+                fetch(`http://localhost:3000/api/v1/shopping_cart_items/${id}`, {
+                  method: "DELETE"
+                })
+                .then(resp => resp.json())
+                .then(data => { console.log('data delete from shoppingCart ',data) 
+                }) 
+            return {...prevState, shoppingCartItems: [...prevState.shoppingCartItems.filter(item => item.id !== action.payload.id)]}    
+            case "CHECKOUT":
+            console.log('in reducer ')
+            return {...prevState, shoppingCartItems: []}
         
+        case 'FETCH_ITEMS':
+            return {...prevState, items: action.payload.items} 
+        case 'UPDATE_ITEM_PRIE':
+            return {...prevState, 
+                    items: prevState.items.map(item => {
+                        if (item.id===action.payload.id){
+                            return action.payload
+                        }else {
+                            return item
+                        }
+                    })}
+                //     this.setState({items: newItems})
+         
+        case 'ADD_ITEM':
+            console.log('add new items to shoppingCart', action.payload.items)
+            return {...prevState, items: action.payload.items}
+        
+        // case 'DELETE_ITEM':
+        //     return {...prevState, items: action.payload.items}
+        
+        case 'HANDLE_UPDATE_ITEM':
+            return {...prevState, items: action.payload.items}
+        case 'DELETE_OFFER':
+            return {...prevState, offers: [...prevState.offers.filter(offer => offer.id !== action.payload.id)]}    
+        case 'SELL_NEW_ITEM':
+            return {...prevState, items: [...prevState.items, action.payload]}    
+           
+        case 'DELETE_ITEM':
+            return {...prevState, items: [...prevState.items.filter(item => item.id !== action.payload.id)]}    
+                    
         default: 
+
             return prevState
         
     }

@@ -33,16 +33,3 @@ class WatchlistItem extends Component {
 
 export default withRouter(WatchlistItem)
 
-
-// import React from 'react'
-
-// function SearchBar(props) {
-
-//   return (
-//     <div className="search-bar">
-//       <input onChange={props.handleChange} value={props.searchTerm} placeholder="🔍 Search Item"/>
-//     </>
-//   )
-// }
-
-// export default SearchBar

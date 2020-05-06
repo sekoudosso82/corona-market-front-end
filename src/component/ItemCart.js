@@ -8,16 +8,7 @@ import {BrowserRouter as Router,
 import '../App.css';
 
 
-
 class ItemCart extends Component{
-
-  // let {id, title, price, location, condition, category,offer, imgUrl } = props;
-  // let history = useHistory();
-
-  
-    
-  
-
   render(){
     console.log('itemCart this props imgURL',this.props.imgUrl )
     return (
