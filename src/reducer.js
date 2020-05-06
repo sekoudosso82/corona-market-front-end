@@ -82,9 +82,14 @@ function reducer (prevState=initialState, action){
             return {...prevState, offers: action.payload.offers}
         case 'FETCH_USERS':
             return {...prevState, users: action.payload.users}
+        
         case 'FETCH_WATCHLIST':
             return {...prevState, watchlistItems: action.payload.watchlistItems}
-        case "UPDATE_SHOPPINGCART":
+        case 'REMOVE_FROM_WATCHLIST':
+            return {...prevState, watchlistItems: [...prevState.watchlistItems.filter(item => item.id !== action.payload.id)]}    
+            
+        
+            case "UPDATE_SHOPPINGCART":
             console.log('update shoppingCart payload', action.payload )
 
             return {...prevState, shoppingCartItems: [...prevState.shoppingCartItems, action.payload]}

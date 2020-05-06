@@ -23,14 +23,16 @@ class Watchlist extends Component {
         return this.props.watchlistItems
         .filter(item => item.watchlist_id === this.props.currentUser.id)
         .map(item => <WatchlistItem  key={item.id} {...item} 
-                      handleRemoveFromWatchlist={this.handleRemoveFromWatchlist}/>            
+                      // handleRemoveFromWatchlist={this.handleRemoveFromWatchlist}
+
+                      />            
             )  
   }
-  handleRemoveFromWatchlist = (data) => {
-        console.log('delete watchlist data id', data.id)
-        this.setState({watchlistItems: this.props.watchlistItems
-          .filter(item => item.id!==data.id)})
-  }
+  // handleRemoveFromWatchlist = (data) => {
+  //       console.log('delete watchlist data id', data.id)
+  //       this.setState({watchlistItems: this.props.watchlistItems
+  //         .filter(item => item.id!==data.id)})
+  // }
 
   render(){
     return (
@@ -42,7 +44,8 @@ class Watchlist extends Component {
 
 function msp(state){
   return { 
-    watchlistItems: state.watchlistItems,     
+    watchlistItems: state.watchlistItems,   
+    
   }
 } 
 

@@ -1,5 +1,7 @@
 import React, {Component} from 'react'
 import { withRouter } from "react-router";
+import {connect} from 'react-redux'
+
 
 class WatchlistItem extends Component {
 
@@ -10,7 +12,7 @@ class WatchlistItem extends Component {
     })
     .then(resp => resp.json())
     .then(data => { 
-      this.props.handleRemoveFromWatchlist(data)
+      this.props.removeItemFromWatchlist(data)
     })
     
     // this.props.history.push('/watchlist')
@@ -31,5 +33,12 @@ class WatchlistItem extends Component {
   }
 }
 
-export default withRouter(WatchlistItem)
+const mdp = dispatch => {
+  return {
+    removeItemFromWatchlist: (data) => dispatch({type: "REMOVE_FROM_WATCHLIST", 
+                                         payload: (data)})
+  }
+}
+
+export default withRouter(connect(null,mdp)(WatchlistItem))
 
