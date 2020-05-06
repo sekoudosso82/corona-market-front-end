@@ -12,13 +12,13 @@ class Watchlist extends Component {
   // state = { 
   //   watchlistItems: [],     
   // }
-  componentDidMount(){
-    // fetch('http://localhost:3000/api/v1/watchlist_items')
-    // .then(resp => resp.json())
-    // .then(watchlistItems => this.setState({watchlistItems}) )
+  // componentDidMount(){
+  //   // fetch('http://localhost:3000/api/v1/watchlist_items')
+  //   // .then(resp => resp.json())
+  //   // .then(watchlistItems => this.setState({watchlistItems}) )
 
-    this.props.fetchWatchlist()
-  } 
+  //   this.props.fetchWatchlist()
+  // } 
   renderWatchlistItems = () => {
         return this.props.watchlistItems
         .filter(item => item.watchlist_id === this.props.currentUser.id)

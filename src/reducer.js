@@ -75,15 +75,15 @@ function reducer (prevState=initialState, action){
     switch(action.type){
         // case "COUNTSHOPPINGCARTITEMS":
         //     return (prevState.shoppingCartItems)
-        case 'FETCH_SHOPITEM':
-            console.log('fetch shopItem ', action.payload)
-            return {...prevState, shoppingCartItems: action.payload.shoppingCartItems}
-            
+           
         case 'FETCH_OFFERS':
             return {...prevState, offers: action.payload.offers}
                
         case 'DELETE_OFFER':
             return {...prevState, offers: [...prevState.offers.filter(offer => offer.id !== action.payload.id)]}    
+        case "ADD_OFFER":
+            return {...prevState, offers: [...prevState.offers, action.payload]}
+            
                 
         case 'FETCH_USERS':
             return {...prevState, users: action.payload.users}
@@ -103,13 +103,19 @@ function reducer (prevState=initialState, action){
                                  
         case 'FETCH_WATCHLIST':
             return {...prevState, watchlistItems: action.payload.watchlistItems}
+        
+        case "ADD_WATCHLIST":
+                return {...prevState, watchlistItems: [...prevState.watchlistItems, action.payload]}
+            
         case 'REMOVE_FROM_WATCHLIST':
             return {...prevState, watchlistItems: [...prevState.watchlistItems.filter(item => item.id !== action.payload.id)]}    
             
-        
+        case 'FETCH_SHOPITEM':
+            console.log('fetch shopItem ', action.payload)
+            return {...prevState, shoppingCartItems: action.payload.shoppingCartItems}
+             
         case "UPDATE_SHOPPINGCART":
             console.log('update shoppingCart payload', action.payload )
-
             return {...prevState, shoppingCartItems: [...prevState.shoppingCartItems, action.payload]}
         case 'REMOVE_FROM_SHOPPINGCART':
             let id = action.payload.id

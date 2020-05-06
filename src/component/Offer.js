@@ -45,19 +45,10 @@ class Offer extends Component {
                     this.props.deleteOffer(data)
                   })
               }
-
-
-        // console.log('new price after offer accepted ', data)
-        // console.log('this.props.offer ', this.props.offer)
-        // this.props.updateOffer(data)
-      })
-
-    
+      })  
   }
 
   render(){
-
-  
   return (
     <div className="App">
       

@@ -16,7 +16,6 @@ class ShowSingleItem extends Component{
         category: '',   
         offer: false,
         imgUrl:''
-
     }
     toggleEditItem = () => {
         this.setState({ editItem: !this.state.editItem})
@@ -28,7 +27,16 @@ class ShowSingleItem extends Component{
         let { id } = this.props.match.params;              
         fetch(`http://localhost:3000/api/v1/items/${id}`)
         .then(res => res.json())
-        .then(targetItem => this.setState({targetItem}))
+        .then(targetItem => this.setState({targetItem,
+            title: targetItem.title,     
+            price: targetItem.price,
+            location: targetItem.location,   
+            condition: targetItem.condition,
+            category: targetItem.category,   
+            
+            imgUrl:targetItem.imgUrl
+        
+        }))
     }
 
     handleAddToCart = () => {
@@ -78,6 +86,7 @@ class ShowSingleItem extends Component{
                 alert(data.errors)} 
             else {
                 alert('Successfully added to watchlist')}
+                this.props.addWatchlist(data)
         }) 
     }
 
@@ -106,6 +115,8 @@ class ShowSingleItem extends Component{
                 alert(data1.errors)} 
             else {
                 alert('Offer send Successfully')}
+                this.props.addOffer(data1)
+
         }) 
         this.setState({targetItem: {},
             editItem: false,
@@ -192,6 +203,7 @@ class ShowSingleItem extends Component{
                             <button className ="btn btn-warning singleButtonSized" onClick={this.toggleEditItem}>Edit</button>
                             {this.state.editItem ? 
                                 <form  className="formLogin" onSubmit={this.handleEdit}>
+                                
                                     <div className="form-row">
                                         <div> 
                                             <input className="form-control sellItemDivInput" placeholder="title"
@@ -261,7 +273,12 @@ const mdp = dispatch => {
     return {
         updateShopItem: (data) => dispatch({type: "UPDATE_SHOPPINGCART", payload: (data) }), 
         deleteItem: (data) => dispatch({type: "DELETE_ITEM", payload: (data) }), 
-        updateItem: (data) => dispatch({type: "UPDATE_ITEM", payload: (data) })     
+        updateItem: (data) => dispatch({type: "UPDATE_ITEM", payload: (data) }), 
+        
+        addWatchlist: (data) => dispatch({type: "ADD_WATCHLIST", payload: (data) }), 
+        // deleteFromWatchlist: (data) => dispatch({type: "DELETE_FROM_WATCHLIST", payload: (data) }),
+        
+        addOffer: (data) => dispatch({type: "ADD_OFFER", payload: (data) }), 
 
     }
 }

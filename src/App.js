@@ -7,6 +7,8 @@ import {LoginForm, SignupForm, Profile,
 
 import { connect } from 'react-redux'
 import { fetchShopItemCreator } from './reducer'
+import { fetchWatchlistCreator } from './reducer'
+import { fetchOffersCreator } from './reducer'
 
 import NavBar from './container/NavBar'
 import ItemsContainer from './container/ItemsContainer.js'
@@ -43,6 +45,15 @@ class  App extends Component {
     // componentDidMount(){
       this.props.fetchShopItems()
     // } 
+
+    // componentDidMount(){
+      this.props.fetchWatchlist()
+    // } 
+
+    // componentDidMount(){
+      this.props.fetchOffers()
+    // } 
+
   }
       
   // updateShopItem = (data) => { 
@@ -147,7 +158,8 @@ function msp(state){
 const mdp = dispatch => {
   return {
     fetchShopItems: () => dispatch(fetchShopItemCreator()),
-    // checkout:() => dispatch({type: 'CHECKOUT'})
+    fetchWatchlist:() => dispatch(fetchWatchlistCreator()),
+    fetchOffers:() => dispatch(fetchOffersCreator()),
     
   }
 }

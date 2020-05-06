@@ -11,23 +11,7 @@ import {connect} from 'react-redux'
 function NavBar(props){
     console.log('nav bar prop shoppingCartItems length', props.shoppingCartItems.length)
     console.log('nav bar prop current user', props.currentUser)
-  // renderShoppingCartNumber = () => {
-  //   console.log('********* props nav bar *********', props )
-  //   return  props.currentUser && props.shoppingCartItems.length > 0 ? 
-  //        (<div className="navCLass">
-  //                         <span className="shopItemNum">
-  //                             {props.shoppingCartItems
-  //                             .filter(xxx => xxx.shopping_cart_id === props.currentUser.id)
-  //                             .length}
-  //                         </span> 
-  //                         : null
-                        
-                      
-  //                     Shopping 🛒
-  //         </div>) 
-  //         : null 
-                               
-  // }
+  
   return (
    <div className=" navbar fixed-top navbar-dark bg-primary">
    
@@ -52,7 +36,17 @@ function NavBar(props){
 
             /> </div>
         <Link to="/watchlist">
-            <div className="navCLass">👓 list</div>
+            <div className="navCLass">
+            { props.currentUser && props.watchlistItems.length > 0 ? 
+                <span className="shopItemNum">
+                    {props.watchlistItems
+                     .filter(xxx => xxx.watchlist.user_id===props.currentUser.id)
+                     .length}
+                </span> 
+                : null
+            }
+            watchlist 👓 
+            </div>
         </Link>
 
         <Link to="/shoppingcart">
@@ -63,14 +57,24 @@ function NavBar(props){
                      .filter(xxx => xxx.shopping_cart_id === props.currentUser.id)
                      .length}
                 </span> 
-                : null
-               
+                : null 
             }
              Shopping 🛒</div>
         </Link>
 
         <Link to="/items/summary">
-            <div className="navCLass">Summary</div> 
+            <div className="navCLass">
+            { props.currentUser && (props.offers.filter(xxx => xxx.item.user_id === props.currentUser.id)
+                     .length) > 0 ? 
+                <span className="shopItemNum">
+                    {props.offers
+                     .filter(xxx => xxx.item.user_id === props.currentUser.id)
+                     .length} New Offers 
+                </span> 
+                :<span> history </span> 
+            }
+                
+            </div> 
         </Link>
 
         <Link to="/currency">
@@ -91,7 +95,9 @@ function NavBar(props){
 
 function msp(state){
     return { 
-        shoppingCartItems: state.shoppingCartItems
+        shoppingCartItems: state.shoppingCartItems,
+        watchlistItems: state.watchlistItems,
+        offers: state.offers
          
     }
 }

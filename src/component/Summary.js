@@ -10,9 +10,9 @@ import Offer from "./Offer"
 class Summary extends Component {
   
    
-  componentDidMount(){
-    this.props.fetchOffers()
-  } 
+  // componentDidMount(){
+  //   this.props.fetchOffers()
+  // } 
   
 
   renderSoldItems = () => {
