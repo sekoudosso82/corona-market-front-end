@@ -51,13 +51,13 @@ class LoginForm extends React.Component {
               <div class="form-row loginDiv">
                   <div>
                     <h1 className='salut'> Hi {this.state.username}</h1>
-                    <input className="form-control sellItemDivInput" placeholder="username" className='formInput' name="username" 
+                    <input className="form-control loginInput" placeholder="username" className='formInput' name="username" 
                       value={this.state.username} 
                       onChange={this.handleChange}placeholder="username"/>
                     <br></br>
                     <br></br>
                     <br></br>
-                    <input className="form-control sellItemDivInput" placeholder="password" className='formInput' name="password" 
+                    <input className="form-control loginInput" placeholder="password" className='formInput' name="password" 
                         value={this.state.password} type="password"  
                         onChange={this.handleChange}placeholder="password"/>
                   </div>

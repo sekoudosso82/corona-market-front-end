@@ -45,7 +45,7 @@ function NavBar(props){
                 </span> 
                 : null
             }
-            watchlist 👓 
+            watchlist 
             </div>
         </Link>
 
@@ -59,27 +59,29 @@ function NavBar(props){
                 </span> 
                 : null 
             }
-             Shopping 🛒</div>
+             Shop 🛒</div>
         </Link>
 
         <Link to="/items/summary">
             <div className="navCLass">
             { props.currentUser && (props.offers.filter(xxx => xxx.item.user_id === props.currentUser.id)
                      .length) > 0 ? 
-                <span className="shopItemNum">
-                    {props.offers
-                     .filter(xxx => xxx.item.user_id === props.currentUser.id)
-                     .length} New Offers 
-                </span> 
+                     <div>
+                        <span className="shopItemNum">
+                            {props.offers
+                            .filter(xxx => xxx.item.user_id === props.currentUser.id)
+                            .length} </span> 
+                         Offers 
+                     </div>
                 :<span> history </span> 
             }
                 
             </div> 
         </Link>
 
-        <Link to="/currency">
+        {/* <Link to="/currency">
             <div className="navCLass">Currency</div>
-        </Link>
+        </Link> */}
 
         <Link to="/profile">
             <div className="navCLass">Profile</div>

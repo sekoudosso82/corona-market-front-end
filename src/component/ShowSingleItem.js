@@ -59,8 +59,8 @@ class ShowSingleItem extends Component{
         .then(data =>  {
             if(data.errors){
                 alert(data.errors)} 
-            else {
-                alert('Successfully added to shopping cart')}
+            // else {
+            //     alert('Successfully added to shopping cart')}
                 console.log('GOT FROM BACKEND AFTER POST', data)
                 this.props.updateShopItem(data)
         })  
@@ -84,8 +84,8 @@ class ShowSingleItem extends Component{
         .then(data => {
             if(data.errors){
                 alert(data.errors)} 
-            else {
-                alert('Successfully added to watchlist')}
+            // else {
+            //     alert('Successfully added to watchlist')}
                 this.props.addWatchlist(data)
         }) 
     }
@@ -113,8 +113,8 @@ class ShowSingleItem extends Component{
             console.log('offer posted data ', data1)
             if(data1.errors){
                 alert(data1.errors)} 
-            else {
-                alert('Offer send Successfully')}
+            // else {
+            //     alert('Offer send Successfully')}
                 this.props.addOffer(data1)
 
         }) 
@@ -190,7 +190,7 @@ class ShowSingleItem extends Component{
         console.log('*** this state targetItem user id', this.state.targetItem.user_id)
         
         return(
-                <div>
+                <div className='singleItemMainDiv'>
                     <div onClick={() => this.props.history.goBack()} className="back-button">⬅️ Go Back ⬅️</div>
                     <img  className = "img-fluid" src={this.state.targetItem.imgUrl} />
                     <p>{this.state.targetItem.title}</p>
@@ -202,41 +202,41 @@ class ShowSingleItem extends Component{
                             <button className ="btn btn-danger singleButtonSized" onClick={this.handleDelete}>Delete</button> 
                             <button className ="btn btn-warning singleButtonSized" onClick={this.toggleEditItem}>Edit</button>
                             {this.state.editItem ? 
-                                <form  className="formLogin" onSubmit={this.handleEdit}>
+                                <form  className="editItemForm " onSubmit={this.handleEdit}>
                                 
-                                    <div className="form-row">
-                                        <div> 
-                                            <input className="form-control sellItemDivInput" placeholder="title"
+                                    <div className="form-row editItemFormDiv">
+                                        {/* <div className=''>  */}
+                                            <input className="form-control " placeholder="title"
                                             type="text" name = "title" value = {this.state.title} 
                                             onChange = {this.handleChange}/>
                                         
-                                            <input className="form-control sellItemDivInput" placeholder="Add  price"
+                                            <input className="form-control " placeholder="Add  price"
                                             type="text" name = "price" value = {this.state.price} 
                                             onChange = {this.handleChange}/>
                     
-                                            <input className="form-control sellItemDivInput" placeholder="Add  location"
+                                            <input className="form-control " placeholder="Add  location"
                                             type="text" name = "location" value = {this.state.location} 
                                             onChange = {this.handleChange}/>
                                     
-                                            <input className="form-control sellItemDivInput" placeholder="Add  condition"
+                                            <input className="form-control " placeholder="Add  condition"
                                             type="text" name = "condition" value = {this.state.condition} 
                                             onChange = {this.handleChange}/>
                         
-                                            <input className="form-control sellItemDivInput" placeholder="Add category"
+                                            <input className="form-control " placeholder="Add category"
                                             type="text" name = "category" value = {this.state.category} 
                                             onChange = {this.handleChange}/>
                                             
-                                            <input className="form-control sellItemDivInput" placeholder="accept offer yes/no"
+                                            <input className="form-control " placeholder="accept offer yes/no"
                                             type="text" name = "offer" value = {this.state.offer} 
                                             onChange = {this.handleChange}/>
                                         
-                                            <input className="form-control sellItemDivInput" placeholder="Add Image Url"
+                                            <input className="form-control " placeholder="Add Image Url"
                                             type="text" name = "imgUrl" value = {this.state.imgUrl} 
                                             onChange = {this.handleChange}/>
                                         
                                             <button className ="btn btn-success singleButtonSized" type='Submit' value="Submit" >Update item</button>
                                         </div>
-                                    </div>
+                                    {/* </div> */}
                                 </form>
                             : null} 
                         </div>      
@@ -248,9 +248,9 @@ class ShowSingleItem extends Component{
                             <button className ="btn btn-secondary singleButtonSized" onClick = {this.toggleMakeOffer}>Make Offer</button>
                             {this.state.makeOffer? 
                                 <form  className="formLogin" onSubmit={this.handleMakeOffer}>
-                                    <div className="form-row">
+                                    <div className="form-row offerFormInput">
                                         <div> 
-                                            <input className="form-control sellItemDivInput" placeholder="offer price"
+                                            <input className="form-control " placeholder="offer price"
                                                     type="text" name = "price" value = {this.state.price} 
                                                     onChange = {this.handleChange}/> 
                                             <button className ="btn btn-success singleButtonSized" type='Submit' value="Submit" >Send Offer</button>
