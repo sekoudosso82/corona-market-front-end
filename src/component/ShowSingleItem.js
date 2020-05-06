@@ -164,11 +164,12 @@ class ShowSingleItem extends Component{
             )
         })
         .then(resp=>resp.json())
-        .then(data =>  {this.props.handleUpdateItem(data)})
+        .then(data =>  {this.props.updateItem(data)})
 
         this.setState({ targetItem: {} }) 
         this.props.history.push('/items')
     } 
+
 
     
     render(){
@@ -254,30 +255,16 @@ class ShowSingleItem extends Component{
     } 
 }     
 
-// function msp(state){
-//     return {
-        // targetItem: state.targetItem,
-        // editItem: state.editItem,
-        // makeOffer: state.makeOffer,
-        // title: state.title,     
-        // price: state.price,
-        // location: state.location,   
-        // condition: state.condition,
-        // category: state.category,   
-        // offer: state.offer,
-        // imgUrl: state.imgUrl
 
-//     }
-// } 
 
 const mdp = dispatch => {
     return {
-        updateShopItem: (data) => dispatch({type: "UPDATE_SHOPPINGCART", 
-                                           payload: (data)}), 
-        deleteItem: (data) => dispatch({type: "DELETE_ITEM", 
-                                           payload: (data)}), 
+        updateShopItem: (data) => dispatch({type: "UPDATE_SHOPPINGCART", payload: (data) }), 
+        deleteItem: (data) => dispatch({type: "DELETE_ITEM", payload: (data) }), 
+        updateItem: (data) => dispatch({type: "UPDATE_ITEM", payload: (data) })     
+
     }
-  }
+}
 
 
 export default withRouter(connect(null, mdp)(ShowSingleItem));  

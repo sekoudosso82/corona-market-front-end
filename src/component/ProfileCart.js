@@ -1,25 +1,22 @@
 import React, {Component} from 'react'
+import {Link} from 'react-router-dom';
+  
+import { withRouter } from "react-router";
 import {connect} from 'react-redux'
-// import { withRouter } from "react-router";
 
 class ProfileCart extends Component {
     state = {
         updateIsClicked: false,
-        deleteIsClicked: false,
-        // username: '',
-        // password: '',
-        // email: '',
-        // phone: '',
-        // profileImage: '',
+        username: this.props.username,
+        password: this.props.password,
+        email: this.props.email,
+        phone: this.props.phone,
+        profileImage: this.props.profileImage
     }
-
-    toggleUpdateIsClicked= () => {
+    toggleUpdateIsClicked = () => {
         this.setState({ updateIsClicked: !this.state.updateIsClicked})
     }
 
-    toggleDeleteIsClicked= () => {
-        this.setState({ deleteIsClicked: !this.state.deleteIsClicked})
-    }
     handleChange = (event) => {
         this.setState({
               [event.target.name]: event.target.value
@@ -29,11 +26,11 @@ class ProfileCart extends Component {
     handleUpdateProfile = (event) => {
         event.preventDefault()
         let data = {
-            username: this.props.username,
-            password: this.props.password,
-            email: this.props.email,
-            phone: this.props.phone,
-            profileImage: this.props.profileImage
+            username: this.state.username,
+            password: this.state.password,
+            email: this.state.email,
+            phone: this.state.phone,
+            profileImage: this.state.profileImage
         }
         let id  = this.props.currentUser.id; 
         console.log(' profile id ', this.props.currentUser.id )             
@@ -44,11 +41,12 @@ class ProfileCart extends Component {
             body: JSON.stringify(data)
         })
         .then(resp=>resp.json())
-        .then(data1 =>  {
-            console.log('updated profile id', data1)
-            this.props.updateProfile(data1)})
+        .then(data =>  {
+            console.log('updated profile id', data)
+            this.props.updateProfile(data)})
 
-        this.setState({ updateIsClicked: false,
+        this.setState({ 
+                        updateIsClicked: false,
                         username: '',
                         password: '',
                         email: '',
@@ -89,48 +87,51 @@ class ProfileCart extends Component {
         
         })
 
+        // this.props.history.push('/login')
     }
     
-
   render(){
+      console.log(' ********** profile props history ********', this.props)
       return (
         <div className="search-bar">
             <img  className = "rounded mx-auto d-block profileImage" src={this.props.profileImage} />
             <p> username: {this.props.username} </p>
             <p> email: {this.props.email} </p>
             <p> phone: {this.props.phone} </p>
-            <button class="btn btn-danger" onClick={this.handleDelete}>Delete Account</button>
+            <Link to="/signup">
+                <button class="btn btn-danger" onClick={this.handleDelete}>Delete Account</button>
+            </Link>
             <button class="btn btn-primary" onClick={this.toggleUpdateIsClicked}>Update Account</button>
             {this.state.updateIsClicked ? 
                 <form  onSubmit={this.handleUpdateProfile}>
                     <br></br>
                     
                     <label>username</label>
-                    <input type="text" name = "username" value = {this.props.username} 
+                    <input type="text" name = "username" value = {this.state.username} 
                     onChange = {this.handleChange}/>
                     <br></br>
                     <br></br>
 
                     <label>password</label>
-                    <input type="text" name = "password" value = {this.props.password} 
+                    <input type="text" name = "password" value = {this.state.password} placeholder='ENTER NEW PASSWORD'
                     onChange = {this.handleChange}/>
                     <br></br>
                     <br></br>
 
                     <label>email</label>  
-                    <input type="text" name ="email" value = {this.props.email} 
+                    <input type="text" name ="email" value = {this.state.email} 
                     onChange = {this.handleChange}/>
                     <br></br>
                     <br></br>
 
                     <label>phone</label>  
-                    <input type="text" name = "phone" value = {this.props.phone} 
+                    <input type="text" name = "phone" value = {this.state.phone} 
                     onChange = {this.handleChange}/>
                     <br></br>
                     <br></br>
 
                     <label>profileImage</label>  
-                    <input type="text" name = "profileImage" value = {this.props.profileImage} 
+                    <input type="text" name = "profileImage" value = {this.state.profileImage} 
                     onChange = {this.handleChange}/>
                     <br></br>
                     <br></br>
@@ -150,16 +151,12 @@ class ProfileCart extends Component {
   }
 }
 
-function msp(state){
+const mdp = dispatch => {
     return {
-        // updateIsClicked: state.updateIsClicked,
-        // deleteIsClicked: state.deleteIsClicked,
-        username: state.username,
-        password: state.password,
-        email: state.email,
-        phone: state.phone,
-        profileImage: state.profileImage,
-    }
+        updateProfile: (data) => dispatch({type: "UPDATE_PROFILE", payload: (data) }), 
+        deleteAccount: (data) => dispatch({type: "DELETE_ACCOUNT", payload: (data) }), 
+    } 
 }
-export default connect(msp)(ProfileCart)
-// export default withRouter(ProfileCart)
+   
+// export default connect(null, mdp)(ProfileCart)
+export default withRouter(connect(null, mdp)(ProfileCart))

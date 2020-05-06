@@ -20,27 +20,29 @@ class Profile extends Component {
         .filter(user => user.id === this.props.currentUser.id)
         .map(user => <ProfileCart  key={user.id} {...user} 
         currentUser={this.props.currentUser} 
-        updateProfile={this.updateProfile} 
-        deleteAccount={this.deleteAccount}/>            
+        // updateProfile={this.updateProfile} 
+        // deleteAccount={this.deleteAccount}
+
+        />            
       )  
   }
 
-  updateProfile = (updatedProfile) => {
-    console.log('updated profile', updatedProfile)
-    let newUsers = this.props.users.map(user => {
-        if (user.id===updatedProfile.id){
-            return updatedProfile
-        }else {
-            return user
-        }
-    })
-    this.setState({users: newUsers})
-  }
+  // updateProfile = (updatedProfile) => {
+  //   console.log('updated profile', updatedProfile)
+  //   let newUsers = this.props.users.map(user => {
+  //       if (user.id===updatedProfile.id){
+  //           return updatedProfile
+  //       }else {
+  //           return user
+  //       }
+  //   })
+  //   this.setState({users: newUsers})
+  // }
 
-  deleteAccount = (accountToDelete) => {
-    let newUsers = this.state.users.filter(user => user.id !== accountToDelete.id)
-    this.setState({ items: newUsers })
-  }
+  // deleteAccount = (accountToDelete) => {
+  //   let newUsers = this.state.users.filter(user => user.id !== accountToDelete.id)
+  //   this.setState({ items: newUsers })
+  // }
 
   render(){
     return (

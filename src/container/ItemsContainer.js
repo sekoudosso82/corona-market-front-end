@@ -68,11 +68,13 @@ class  ItemsContainer extends Component {
           />
           <Route path='/items/:id' render={routerProps => 
             <ShowSingleItem {...routerProps} 
-            DeleteItem={this.DeleteItem} 
+            // DeleteItem={this.DeleteItem} 
             handleUpdateItem={this.handleUpdateItem}
             handleChange={this.handleChange} 
             userId={this.props.currentUser.id}
-            updateShopItem={this.props.updateShopItem} />} 
+            // updateShopItem={this.props.updateShopItem} 
+
+            />} 
           />
 
           <Route path='/items' render={routerProps => 
@@ -98,8 +100,7 @@ const mdp = dispatch => {
   return {
     fetchItems: () => dispatch(fetchItemCreator()),
     addItem: () => dispatch({type: 'ADD_ITEM'}) ,
-    DeleteItem: () => dispatch({type: 'DELETE_ITEM'}) ,
-    handleUpdateItem: () => dispatch({type: 'HANDLE_UPDATE_ITEM'})     
+    // DeleteItem: () => dispatch({type: 'DELETE_ITEM'}) ,
   }
 }
 

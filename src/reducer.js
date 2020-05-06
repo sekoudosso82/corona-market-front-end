@@ -78,18 +78,36 @@ function reducer (prevState=initialState, action){
         case 'FETCH_SHOPITEM':
             console.log('fetch shopItem ', action.payload)
             return {...prevState, shoppingCartItems: action.payload.shoppingCartItems}
+            
         case 'FETCH_OFFERS':
             return {...prevState, offers: action.payload.offers}
+               
+        case 'DELETE_OFFER':
+            return {...prevState, offers: [...prevState.offers.filter(offer => offer.id !== action.payload.id)]}    
+                
         case 'FETCH_USERS':
             return {...prevState, users: action.payload.users}
         
+        case 'UPDATE_PROFILE':
+            return {...prevState, 
+                    users: prevState.users.map(user => {
+                        if (user.id===action.payload.id){
+                            return action.payload
+                        }else {
+                            return user
+                        }
+                    })}
+
+        case 'DELETE_ACCOUNT':
+            return {...prevState, users: [...prevState.users.filter(user => user.id !== action.payload.id)]}    
+                                 
         case 'FETCH_WATCHLIST':
             return {...prevState, watchlistItems: action.payload.watchlistItems}
         case 'REMOVE_FROM_WATCHLIST':
             return {...prevState, watchlistItems: [...prevState.watchlistItems.filter(item => item.id !== action.payload.id)]}    
             
         
-            case "UPDATE_SHOPPINGCART":
+        case "UPDATE_SHOPPINGCART":
             console.log('update shoppingCart payload', action.payload )
 
             return {...prevState, shoppingCartItems: [...prevState.shoppingCartItems, action.payload]}
@@ -103,7 +121,8 @@ function reducer (prevState=initialState, action){
                 .then(data => { console.log('data delete from shoppingCart ',data) 
                 }) 
             return {...prevState, shoppingCartItems: [...prevState.shoppingCartItems.filter(item => item.id !== action.payload.id)]}    
-            case "CHECKOUT":
+            
+        case "CHECKOUT":
             console.log('in reducer ')
             return {...prevState, shoppingCartItems: []}
         
@@ -118,25 +137,28 @@ function reducer (prevState=initialState, action){
                             return item
                         }
                     })}
-                //     this.setState({items: newItems})
          
         case 'ADD_ITEM':
             console.log('add new items to shoppingCart', action.payload.items)
             return {...prevState, items: action.payload.items}
         
-        // case 'DELETE_ITEM':
-        //     return {...prevState, items: action.payload.items}
-        
-        case 'HANDLE_UPDATE_ITEM':
-            return {...prevState, items: action.payload.items}
-        case 'DELETE_OFFER':
-            return {...prevState, offers: [...prevState.offers.filter(offer => offer.id !== action.payload.id)]}    
+        case 'UPDATE_ITEM':
+            return {...prevState, 
+                items: prevState.items.map(item => {
+                    if (item.id===action.payload.id){
+                        return action.payload
+                    }else {
+                        return item
+                    }
+                })}
+
         case 'SELL_NEW_ITEM':
             return {...prevState, items: [...prevState.items, action.payload]}    
            
         case 'DELETE_ITEM':
             return {...prevState, items: [...prevState.items.filter(item => item.id !== action.payload.id)]}    
-                    
+           
+            
         default: 
 
             return prevState
