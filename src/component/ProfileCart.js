@@ -1,9 +1,7 @@
 import React, {Component} from 'react'
 import {Link} from 'react-router-dom';
-  
 import { withRouter } from "react-router";
 import {connect} from 'react-redux'
-
 class ProfileCart extends Component {
     state = {
         updateIsClicked: false,
@@ -46,16 +44,13 @@ class ProfileCart extends Component {
             this.props.updateProfile(data)})
 
         this.setState({ 
-                        updateIsClicked: false,
-                        username: '',
-                        password: '',
-                        email: '',
-                        phone: '',
-                        profileImage: '',
+            updateIsClicked: false,
+            username: this.props.username,
+            password: this.props.password,
+            email: this.props.email,
+            phone: this.props.phone,
+            profileImage: this.props.profileImage
                      }) 
-
-        // this.props.history.push('/profile')
-
     } 
 
     handleDelete = () => {
@@ -86,8 +81,6 @@ class ProfileCart extends Component {
                 })
         
         })
-
-        // this.props.history.push('/login')
     }
     
   render(){
@@ -109,32 +102,27 @@ class ProfileCart extends Component {
                     <label>username</label>
                     <input type="text" name = "username" value = {this.state.username} 
                     onChange = {this.handleChange}/>
-                    <br></br>
-                    <br></br>
+                    <br></br><br></br>
 
                     <label>password</label>
                     <input type="text" name = "password" value = {this.state.password} placeholder='ENTER NEW PASSWORD'
                     onChange = {this.handleChange}/>
-                    <br></br>
-                    <br></br>
+                    <br></br><br></br>
 
                     <label>email</label>  
                     <input type="text" name ="email" value = {this.state.email} 
                     onChange = {this.handleChange}/>
-                    <br></br>
-                    <br></br>
+                    <br></br><br></br>
 
                     <label>phone</label>  
                     <input type="text" name = "phone" value = {this.state.phone} 
                     onChange = {this.handleChange}/>
-                    <br></br>
-                    <br></br>
+                    <br></br><br></br>
 
                     <label>profileImage</label>  
                     <input type="text" name = "profileImage" value = {this.state.profileImage} 
                     onChange = {this.handleChange}/>
-                    <br></br>
-                    <br></br>
+                    <br></br><br></br>
                     <button type='Submit' value="Submit" class="btn btn-success">Update Profile</button>
                 </form>
                     
@@ -158,5 +146,4 @@ const mdp = dispatch => {
     } 
 }
    
-// export default connect(null, mdp)(ProfileCart)
 export default withRouter(connect(null, mdp)(ProfileCart))

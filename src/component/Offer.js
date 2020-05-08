@@ -21,7 +21,6 @@ class Offer extends Component {
   handleAcceptOffer = () => {
     let id  = this.props.offer.item.id; 
     let id2  = this.props.offer.id;
-    // data = {...this.props.offer, price:}             
     fetch(`http://localhost:3000/api/v1/items/${id}`, {
       method: 'PATCH',
       headers: {"Content-Type": "application/json",
@@ -74,8 +73,7 @@ const mdp = dispatch => {
     deleteOffer: (data) => dispatch({type: "DELETE_OFFER", 
                                          payload: (data)}),
     updateItemPrice: (data) => dispatch({type: "UPDATE_ITEM_PRIE", 
-                                         payload: (data)}),
-                            
+                                         payload: (data)}),                          
   }
 }
 

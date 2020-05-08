@@ -62,7 +62,6 @@ class SellItem extends Component {
   render(){
     console.log('****sell  item currentUser  ***' , this.props.userId)
     return (
-      // <div className='sellItemDiv'>
         <form className='sellItemDiv' onSubmit={this.handleSubmit}>
             <div class="form-row">
               <div class="col">
@@ -112,23 +111,10 @@ class SellItem extends Component {
           
           <button type='Submit' value="Submit" class="btn btn-primary">Submit item</button>
         </form>
-      // </div>
   );
 
 }
 }
-
-// function msp(state){
-//     return {
-//         title: state.title, 
-//         price: state.price, 
-//         location: state.location,
-//         condition: state.condition, 
-//         category: state.category,
-//         offer: state.offer, 
-//         imgUrl: state.imgUrl,
-//     }
-// }  
 
 const mdp = dispatch => {
   return {

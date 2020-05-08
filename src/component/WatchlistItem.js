@@ -2,9 +2,7 @@ import React, {Component} from 'react'
 import { withRouter } from "react-router";
 import {connect} from 'react-redux'
 
-
 class WatchlistItem extends Component {
-
 
   removeFromWatchlist = () => {
     fetch(`http://localhost:3000/api/v1/watchlist_items/${this.props.id}`, {
@@ -14,8 +12,6 @@ class WatchlistItem extends Component {
     .then(data => { 
       this.props.removeItemFromWatchlist(data)
     })
-    
-    // this.props.history.push('/watchlist')
   }
   render(){
     console.log('delete from watchlist props id', this.props.id)             

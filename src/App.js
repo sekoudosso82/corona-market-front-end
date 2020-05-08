@@ -10,6 +10,7 @@ import { fetchOffersCreator } from './reducer'
 
 import NavBar from './container/NavBar'
 import ItemsContainer from './container/ItemsContainer.js'
+import bp from './bp.jpg'
 
 class  App extends Component {
   state = { 
@@ -73,7 +74,7 @@ class  App extends Component {
   return (
 
     <>
-      
+        {/* <img src={bp} className='bp' alt='background pic'/> */}
         <NavBar fixed="top"  currentUser={this.state.currentUser} logout={this.logout}
           searchTerm={this.state.searchTerm} sortChoice={this.state.sortChoice}
           handleChange={this.handleChange}  />

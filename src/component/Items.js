@@ -38,14 +38,6 @@ class Items extends Component {
 }
 }
 
-// function msp(state){
-//     return { 
-//         searchTerm: state.searchTerm, 
-         
-//     }
-// }
-
 export default Items;
 
-// export default connect(msp)(Items);
 

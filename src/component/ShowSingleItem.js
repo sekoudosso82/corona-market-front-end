@@ -2,7 +2,6 @@ import React, {Component} from 'react'
 import { withRouter } from "react-router";
 import {connect} from 'react-redux'
 import '../App.css';
-
 class ShowSingleItem extends Component{
 
     state = {
@@ -33,9 +32,7 @@ class ShowSingleItem extends Component{
             location: targetItem.location,   
             condition: targetItem.condition,
             category: targetItem.category,   
-            
             imgUrl:targetItem.imgUrl
-        
         }))
     }
 
@@ -205,7 +202,6 @@ class ShowSingleItem extends Component{
                                 <form  className="editItemForm " onSubmit={this.handleEdit}>
                                 
                                     <div className="form-row editItemFormDiv">
-                                        {/* <div className=''>  */}
                                             <input className="form-control " placeholder="title"
                                             type="text" name = "title" value = {this.state.title} 
                                             onChange = {this.handleChange}/>
@@ -236,7 +232,6 @@ class ShowSingleItem extends Component{
                                         
                                             <button className ="btn btn-success singleButtonSized" type='Submit' value="Submit" >Update item</button>
                                         </div>
-                                    {/* </div> */}
                                 </form>
                             : null} 
                         </div>      
@@ -275,13 +270,10 @@ const mdp = dispatch => {
         deleteItem: (data) => dispatch({type: "DELETE_ITEM", payload: (data) }), 
         updateItem: (data) => dispatch({type: "UPDATE_ITEM", payload: (data) }), 
         
-        addWatchlist: (data) => dispatch({type: "ADD_WATCHLIST", payload: (data) }), 
-        // deleteFromWatchlist: (data) => dispatch({type: "DELETE_FROM_WATCHLIST", payload: (data) }),
-        
+        addWatchlist: (data) => dispatch({type: "ADD_WATCHLIST", payload: (data) }),         
         addOffer: (data) => dispatch({type: "ADD_OFFER", payload: (data) }), 
 
     }
 }
-
 
 export default withRouter(connect(null, mdp)(ShowSingleItem));  

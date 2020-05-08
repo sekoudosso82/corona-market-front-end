@@ -1,22 +1,12 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux' 
 import {fetchOffersCreator} from '../reducer'
-
 import '../App.css';
 import Offer from "./Offer"
 
-
-
 class Summary extends Component {
   
-   
-  // componentDidMount(){
-  //   this.props.fetchOffers()
-  // } 
-  
-
   renderSoldItems = () => {
-    // items={this.state.items}  currentUser
         let itemTorender = this.props.items        
         return itemTorender
         .filter(item => item.user_id===this.props.currentUser.id)
@@ -32,19 +22,10 @@ class Summary extends Component {
 
   renderOffers = () => {
     
-    // items={this.state.items}  currentUser
         let offerTorender = this.props.offers        
         return offerTorender
         .filter(offer => offer.item.user_id===this.props.currentUser.id)
-        .map(offer => <Offer key={offer.id} offer={offer} 
-        // toggleDeclinedOffer={this.toggleDeclinedOffer} 
-        // declinedOffer={this.props.declinedOffer} 
-        // DeleteOffer={this.DeleteOffer} 
-        // handleUpdateItem={this.props.handleUpdateItem}
-        // updateOffer={this.updateOffer}
-        
-        />
-        ) 
+        .map(offer => <Offer key={offer.id} offer={offer} />) 
   }
 
   DeleteOffer = (data) => {
@@ -52,25 +33,12 @@ class Summary extends Component {
       this.setState({ offers: newOffers })   
   }
 
-  // updateOffer = (updateditem) => {
-  //   let newOffers = this.props.offers.map(offer => {
-  //     if (offer.item.id===updateditem.id){
-  //         return {...offer, }
-  //     }else {
-  //         return offer
-  //     }
-  //   })
-  //   this.setState({offers: newOffers})
-    // console.log('new offer', newOffers)
-    // console.log('updated item', updateditem)
-  // }
-
   render()
   {
     console.log('id of declined offer ******',this.props.declinedOffer)
     console.log('summary all items ******',this.props.items)
     return (
-      <div className="App topDiv">
+      <div className="App ">
         <div className='summaryDiv'>
             Selling Items
             {this.renderSoldItems()}
@@ -94,8 +62,7 @@ function msp(state){
 
 const mdp = dispatch => {
   return {
-    fetchOffers: () => dispatch(fetchOffersCreator()),
-    
+    fetchOffers: () => dispatch(fetchOffersCreator()) 
   }
 }
 

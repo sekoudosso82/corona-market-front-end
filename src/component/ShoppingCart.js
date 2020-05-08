@@ -4,8 +4,6 @@ import ShoppingCartItem from './ShoppingCartItem'
 import {connect} from 'react-redux' 
 import { fetchShopItemCreator } from '../reducer'
 
-
-
 class ShoppingCart extends Component {
   
   renderShoppingCartItems = () => {
@@ -25,16 +23,10 @@ class ShoppingCart extends Component {
   }
   subTotal = () => {
     console.log('_________shoppingCartItem  props--------------- ', this.props.shoppingCartItems)
-    // if (this.props.shoppingCartItems){
-      // let summmm = this.props.shoppingCartItems
-      // return summmm
+    
       return this.props.shoppingCartItems
       .filter(item => item.shopping_cart_id === this.props.currentUser.id)
       .reduce((totalPrice,itemInShoppingCart) => totalPrice + itemInShoppingCart.item.price, 0)
-
-    // }else {
-    //   return 0
-    // }
   } 
   estimatedtaxxxx = () => {
     let summmm = this.props.shoppingCartItems
@@ -67,13 +59,11 @@ class ShoppingCart extends Component {
     .filter(item => item.shopping_cart_id === this.props.currentUser.id)
     
     for (let i = 0; i < emptyArr.length; i++) {
-      
         fetch(`http://localhost:3000/api/v1/shopping_cart_items/${emptyArr[i].id}`, {
           method: "DELETE"
         })
         .then(resp => resp.json())
-        .then(data => {console.log(data) })
-      
+        .then(data => {console.log(data) }) 
     }
     this.props.checkout();
   } 
@@ -82,12 +72,9 @@ class ShoppingCart extends Component {
   render(){ 
     console.log('shoppingCart props********. shoppingCartItems', this.props.shoppingCartItems)
     return (
-
       <div className="App ">
-
           <h1>Items in shoppingCart</h1>
           <div className="shopppingCardCardDiv">
-          
               {this.renderShoppingCartItems()} 
           </div>
           <div className="shopppingCardCardDiv1">

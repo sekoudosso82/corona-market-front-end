@@ -1,17 +1,30 @@
 .App {
   text-align: center;
   margin-top: 4%;
-  /* background-color: darkolivegreen; */
+  /* background-image: url(./bp3.jpg); */
+  /* position: fixed; */
+  /* min-width: 100%; */
+  /* height: 100%; */
+  /* background-size: cover; */
+  /* background-position: center; */
+  /* background-repeat: repeat; */
+  /* -moz-background-size:cover; */
+
 }
 
 .App-logo {
   height: 40vmin;
   pointer-events: none;
+  /* background-image: url('./bp.jpg'); */
+
 }
+
 
 @media (prefers-reduced-motion: no-preference) {
   .App-logo {
     animation: App-logo-spin infinite 20s linear;
+    /* background-image: '../public/bp.npg'; */
+
   }
 }
 
@@ -40,8 +53,16 @@
 }
 .body{
   background-color: #3498db;
+  background-image: '../public/bp.npg';
 }
+ 
+.bp{
+  width: 100%;
+  height: 100vh;
+  opacity: 1;
+  overflow: hidden;
 
+}
 /* NavBar  */
 .navDiv{
   width: 100%;
@@ -255,11 +276,6 @@
   padding-top: 10%;
 }
 
-/* Sell item div */
-.sellItemDiv{
-  margin-left: 25%;
-  margin-top: 10%;
-}
 
 /* shopping cart  */
 .shopppingCardCardDiv{
@@ -278,7 +294,7 @@
   font-family: "Oswald", sans-serif;
   font-size: 20px;
   position: fixed;
-  background-color: red;
+  /* background-color: red; */
   /* top: 5%; */
 }
 .shopppingCardCardDiv1{
@@ -298,7 +314,7 @@
   font-family: "Oswald", sans-serif;
   font-size: 20px;
   /* position: absolute; */
-  background-color:white;
+  /* background-color:white; */
   /* top: 5%; */
 }
 
@@ -344,8 +360,9 @@
 /* sell item  */
 
 .sellItemDiv{
-  margin-top: 20%;
+  margin-top: 1%;
   margin-left: 10%;
+  height: 98vh;
 }
 
 .sellItemDivInput{
@@ -378,14 +395,14 @@
 }
 .singleItemMainDiv{
   margin-top: 6%;
-  margin-bottom: 5%;
+  margin-bottom: 1%;
   /* height: 600px; */
 }
 
 /* Summary  */
 .summaryDiv{
   width: 45%;
-  min-height:80vh;
+  min-height:100vh;
   background-color: #4CAF50;
   float: left;
   margin: 1.5%;
@@ -402,6 +419,16 @@
   margin: 1.5%;
 }
 .summarySoldDiv{
+  background-color: white;
+  margin-left: 20%;
+  margin-bottom: 2px;
+  height: 10%;
+  width: 60%;
+  border-style: solid;
+  border-color: black;
+  border-width: 3px;
+}
+.offerElementDiv{
   background-color: white;
   margin-left: 20%;
   margin-bottom: 2px;
@@ -431,4 +458,15 @@ img:hover {
 
   background-color: #f0f7fb   
 } 
+
+body {
+  background-image: url(./bp3.jpg);
+  /* position: fixed; */
+  min-width: 100%;
+  height: 100%;
+  background-size: cover;
+  background-position: center;
+  /* background-repeat: repeat; */
+  -moz-background-size:cover;
+}
 

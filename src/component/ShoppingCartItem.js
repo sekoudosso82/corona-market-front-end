@@ -4,19 +4,6 @@ import {connect} from 'react-redux'
 
 
 class ShoppingCartItem extends Component {
-
-
-  // removeFromShop = () => {
-  //   fetch(`http://localhost:3000/api/v1/shopping_cart_items/${this.props.id}`, {
-  //     method: "DELETE"
-  //   })
-  //   .then(resp => resp.json())
-  //   .then(data => { 
-  //     this.props.RemoveFromShoppingCart(data)
-  //   })
-    
-  //   // this.props.history.push('/watchlist')
-  // }
   render(){
     console.log('delete from shoppingCart props id', this.props.id)             
       return (

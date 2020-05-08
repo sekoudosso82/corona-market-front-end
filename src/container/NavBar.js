@@ -1,7 +1,5 @@
 import React from 'react';
-// import {Navbar} from 'react-bootstrap'
 import { Link } from 'react-router-dom';
-
 import '../App.css';
 import { SellItem, Watchlist, Summary , SearchBar, Currency, 
   FilterBar, ShoppingCart, UserController} from '../component'; 
@@ -25,16 +23,12 @@ function NavBar(props){
               <div className="navCLass">Sell</div>
           </Link>
           
-          {/* <div className="navCLass"> 
-            <SearchBar handleChange={props.handleChange} searchTerm={props.searchTerm}/> </div> */}
           
-          <div className="navCLassFilter "> 
+        <div className="navCLassFilter "> 
             <FilterBar handleChange={props.handleChange} 
                        searchTerm={props.searchTerm}
-                       sortChoice={props.sortChoice}
-                      //  handleSort={props.handleSort}
-
-            /> </div>
+                       sortChoice={props.sortChoice} /> 
+        </div>
         <Link to="/watchlist">
             <div className="navCLass">
             { props.currentUser && props.watchlistItems.length > 0 ? 
@@ -79,10 +73,6 @@ function NavBar(props){
             </div> 
         </Link>
 
-        {/* <Link to="/currency">
-            <div className="navCLass">Currency</div>
-        </Link> */}
-
         <Link to="/profile">
             <div className="navCLass">Profile</div>
         </Link>
@@ -103,11 +93,5 @@ function msp(state){
          
     }
 }
-
-// const mdp = dispatch => {
-//     return {
-//         countShoppingCartitems: () => dispatch({type: 'COUNTSHOPPINGCARTITEMS'}),
-//     }
-//   }
 
 export default connect(msp)(NavBar)
