@@ -24,7 +24,7 @@ class ShowSingleItem extends Component{
     }
     componentDidMount(){
         let { id } = this.props.match.params;              
-        fetch(`http://localhost:3000/api/v1/items/${id}`)
+        fetch(`https://corona-backend1.herokuapp.com/api/v1/items/${id}`)
         .then(res => res.json())
         .then(targetItem => this.setState({targetItem,
             title: targetItem.title,     
@@ -46,7 +46,7 @@ class ShowSingleItem extends Component{
             console.log('shopping_cart_id', this.props.userId)
             console.log('item_id', parseInt(id))
           console.log('** shopping cart post', data)
-        fetch(`http://localhost:3000/api/v1/shopping_cart_items`, {
+        fetch(`https://corona-backend1.herokuapp.com/api/v1/shopping_cart_items`, {
             method: 'Post',
             headers: {"Content-Type": "application/json",
                       "Accept": "application/json"},    
@@ -71,7 +71,7 @@ class ShowSingleItem extends Component{
         console.log('watchlist_id', this.props.userId)
         console.log('item_id', parseInt(id))
         console.log('** watchlist post', data)
-        fetch("http://localhost:3000/api/v1/watchlist_items", {
+        fetch("https://corona-backend1.herokuapp.com/api/v1/watchlist_items", {
             method: 'Post',
             headers: {"Content-Type": "application/json",
                       "Accept": "application/json"},    
@@ -99,7 +99,7 @@ class ShowSingleItem extends Component{
           } 
           console.log('offer  data  ', data)
 
-        fetch("http://localhost:3000/api/v1/offers", {
+        fetch("https://corona-backend1.herokuapp.com/api/v1/offers", {
             method: 'Post',
             headers: {"Content-Type": "application/json",
                       "Accept": "application/json"},    
@@ -133,7 +133,7 @@ class ShowSingleItem extends Component{
     
     handleDelete = () => {
         let { id } = this.props.match.params;              
-        fetch(`http://localhost:3000/api/v1/items/${id}`, {
+        fetch(`https://corona-backend1.herokuapp.com/api/v1/items/${id}`, {
             method: "DELETE"
         })
         .then(resp => resp.json())
@@ -163,7 +163,7 @@ class ShowSingleItem extends Component{
             imgUrl: this.state.imgUrl,
           }
         let { id } = this.props.match.params;              
-        fetch(`http://localhost:3000/api/v1/items/${id}`, {
+        fetch(`https://corona-backend1.herokuapp.com/api/v1/items/${id}`, {
             method: 'PATCH',
             headers: {"Content-Type": "application/json",
                       "Accept": "application/json"},    

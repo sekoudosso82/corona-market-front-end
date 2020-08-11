@@ -59,7 +59,7 @@ class ShoppingCart extends Component {
     .filter(item => item.shopping_cart_id === this.props.currentUser.id)
     
     for (let i = 0; i < emptyArr.length; i++) {
-        fetch(`http://localhost:3000/api/v1/shopping_cart_items/${emptyArr[i].id}`, {
+        fetch(`https://corona-backend1.herokuapp.com/api/v1/shopping_cart_items/${emptyArr[i].id}`, {
           method: "DELETE"
         })
         .then(resp => resp.json())

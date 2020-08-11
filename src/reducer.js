@@ -32,7 +32,7 @@ const initialState = {
 }
 
 export const fetchShopItemCreator = () => dispatch => {
-    fetch('http://localhost:3000/api/v1/shopping_cart_items')
+    fetch('https://corona-backend1.herokuapp.com/api/v1/shopping_cart_items')
     .then(res => res.json())
     .then(shoppingCartItems => {
         dispatch({type: 'FETCH_SHOPITEM', payload: { shoppingCartItems }})
@@ -40,14 +40,14 @@ export const fetchShopItemCreator = () => dispatch => {
 } 
 
 export const fetchItemCreator = () => dispatch => {
-    fetch('http://localhost:3000/api/v1/items')
+    fetch('https://corona-backend1.herokuapp.com/api/v1/items')
     .then(resp => resp.json())
     .then(items => {
         dispatch({type: 'FETCH_ITEMS', payload: { items }})
     })
 } 
 export const fetchOffersCreator = () => dispatch => {
-    fetch('http://localhost:3000/api/v1/offers')
+    fetch('https://corona-backend1.herokuapp.com/api/v1/offers')
     .then(resp => resp.json())
     .then(offers => {
         dispatch({type: 'FETCH_OFFERS', payload: { offers }})
@@ -55,7 +55,7 @@ export const fetchOffersCreator = () => dispatch => {
 }
 
 export const fetchUsersCreator = () => dispatch => {
-    fetch('http://localhost:3000/api/v1/users')
+    fetch('https://corona-backend1.herokuapp.com/api/v1/users')
     .then(resp => resp.json())
     .then(users => {
         dispatch({type: 'FETCH_USERS', payload: { users }})
@@ -63,7 +63,7 @@ export const fetchUsersCreator = () => dispatch => {
 }  
 
 export const fetchWatchlistCreator = () => dispatch => {
-    fetch('http://localhost:3000/api/v1/watchlist_items')
+    fetch('https://corona-backend1.herokuapp.com/api/v1/watchlist_items')
     .then(resp => resp.json())
     .then(watchlistItems => {
         dispatch({type: 'FETCH_WATCHLIST', payload: { watchlistItems }})
@@ -120,7 +120,7 @@ function reducer (prevState=initialState, action){
         case 'REMOVE_FROM_SHOPPINGCART':
             let id = action.payload.id
             console.log('delete from shoppingCart payload.id', action.payload.id )
-                fetch(`http://localhost:3000/api/v1/shopping_cart_items/${id}`, {
+                fetch(`https://corona-backend1.herokuapp.com/api/v1/shopping_cart_items/${id}`, {
                   method: "DELETE"
                 })
                 .then(resp => resp.json())
