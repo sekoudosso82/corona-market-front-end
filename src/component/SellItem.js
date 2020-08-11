@@ -32,7 +32,7 @@ class SellItem extends Component {
       imgUrl: this.state.imgUrl,
     }
 
-    fetch('http://localhost:3000/api/v1/items', {
+    fetch('https://corona-backend1.herokuapp.com/api/v1/items', {
         method: "POST",
         headers: {"Content-Type": "application/json",
         "Accept": "application/json"},    

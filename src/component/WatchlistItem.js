@@ -5,7 +5,7 @@ import {connect} from 'react-redux'
 class WatchlistItem extends Component {
 
   removeFromWatchlist = () => {
-    fetch(`http://localhost:3000/api/v1/watchlist_items/${this.props.id}`, {
+    fetch(`https://corona-backend1.herokuapp.com/api/v1/watchlist_items/${this.props.id}`, {
       method: "DELETE"
     })
     .then(resp => resp.json())
