@@ -1,0 +1,25 @@
+{
+  "files": {
+    "main.css": "/corona-market-front-end/static/css/main.f71af11c.chunk.css",
+    "main.js": "/corona-market-front-end/static/js/main.29c80af6.chunk.js",
+    "main.js.map": "/corona-market-front-end/static/js/main.29c80af6.chunk.js.map",
+    "runtime-main.js": "/corona-market-front-end/static/js/runtime-main.2fc5aa13.js",
+    "runtime-main.js.map": "/corona-market-front-end/static/js/runtime-main.2fc5aa13.js.map",
+    "static/js/2.e6bad72a.chunk.js": "/corona-market-front-end/static/js/2.e6bad72a.chunk.js",
+    "static/js/2.e6bad72a.chunk.js.map": "/corona-market-front-end/static/js/2.e6bad72a.chunk.js.map",
+    "index.html": "/corona-market-front-end/index.html",
+    "precache-manifest.d4201268cbcfd8e4b2a67e97ebf0c7fe.js": "/corona-market-front-end/precache-manifest.d4201268cbcfd8e4b2a67e97ebf0c7fe.js",
+    "service-worker.js": "/corona-market-front-end/service-worker.js",
+    "static/css/main.f71af11c.chunk.css.map": "/corona-market-front-end/static/css/main.f71af11c.chunk.css.map",
+    "static/js/2.e6bad72a.chunk.js.LICENSE.txt": "/corona-market-front-end/static/js/2.e6bad72a.chunk.js.LICENSE.txt",
+    "static/media/bp.jpg": "/corona-market-front-end/static/media/bp.7479a9f9.jpg",
+    "static/media/App.css": "/corona-market-front-end/static/media/bp3.cd8dd53e.jpg",
+    "static/media/logo.svg": "/corona-market-front-end/static/media/logo.5d5d9eef.svg"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.2fc5aa13.js",
+    "static/js/2.e6bad72a.chunk.js",
+    "static/css/main.f71af11c.chunk.css",
+    "static/js/main.29c80af6.chunk.js"
+  ]
+}
